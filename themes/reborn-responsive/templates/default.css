@@ -19,31 +19,185 @@
  *
  */
 
+/* -------------------------------
+            Base Styles
+---------------------------------- */
+
 @font-face {
     font-family: 'DejaVuSansCondensed';
     src: url('fonts/dejavusanscondensed.eot?') format('embedded-opentype'),  url('fonts/dejavusanscondensed.woff') format('woff'), url('fonts/dejavusanscondensed.ttf') format('truetype'), url('fonts/dejavusanscondensed.svg#DejaVuSansCondensed') format('svg');
 }
 
-
-/* -------------------------------
-            Base Styles
----------------------------------- */
-
 * {
-    margin: 0;
-    padding: 0;
+    /* margin: 0;
+    padding: 0; */
     box-sizing: border-box;
- }
+}
 
  html {
     color: #222;
-    font-size: 1em;
+    font-size: 62.5%;
     line-height: 1.4;
-  }
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: "DejaVuSansCondensed",Helvetica,Arial,sans-serif;
+    font-weight: normal;
+}
+
+
+
+/* -------------------------------
+            General
+---------------------------------- */
+
+div#maincontainer {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+/* -------------------------------
+            Header
+---------------------------------- */
+
+div#header {
+    display:flex;
+}
 
 #headerlogo {
     width: 128px;
     height: 128px;
     background-size: contain;
+    margin: auto;
+}
+
+#mobileheader {
+    padding-bottom: 1em;
+}
+
+
+
+/* -------------------------------
+            Footer
+---------------------------------- */
+
+div#footer {
+    text-align: center;
+}
+
+
+
+/* -------------------------------
+            Login Page
+---------------------------------- */
+
+
+
+div#loginbox {
+    margin: auto;
+    padding: 1em .25em 0em;
+    font-size: 2rem;
+    width: 100%;
+}
+
+div#loginbox > h2 {
+    display: none;
+}
+
+div.loginfield {
+    padding-bottom: 1em;
+}
+
+form div.loginfield:nth-child(3) {
+    align-items: center;
     display: flex;
+    justify-content: space-between;
+}
+
+div#remembermefield {
+    font-size: .8em;
+}
+
+div.loginoptions {
+    display: flex;
+    flex-flow: row wrap;
+    padding-bottom: 1.25em;
+    /* border-top: .1em solid #ff9d00; */
+    font-size: .8em;
+}
+
+div.loginoptions > a {
+    margin: auto;
+}
+
+
+
+/* -------------------------------
+            Forgot Password
+---------------------------------- */
+
+div#submit-lostpassword {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 1em;
+}
+
+
+
+/* -------------------------------
+            Register
+---------------------------------- */
+
+#registerPage div#header {
+    order: 2;
+}
+
+#registerPage div#header > a {
+    margin: auto;
+}
+
+#registerPage div#content {
+    order: 1;
+}
+
+/* -------------------------------
+            Inputs
+---------------------------------- */
+
+input {
+    border: none;
+    font-size: inherit;
+    border-radius: 2px;
+}
+
+input[type="submit"],input[type="checkbox"] {
+    cursor: pointer;
+    padding: .2em;
+}
+
+input[type="text"],input[type="password"] {
+    height: 1.5em;
+    width: 100%;
+    padding: .2em;
+    border-radius: 7px;
+}
+
+div > input.button {
+    min-width: 5em;
+    padding: .2em;
+}
+
+a.button, a#donate {
+    padding: .2em .4em;
+    min-width: .5em;
+    /* border: 1px solid #ff9d00; */
+    text-decoration: none;
+}
+
+a.button:hover, a#donate:hover {
+    text-decoration: underline;
 }
