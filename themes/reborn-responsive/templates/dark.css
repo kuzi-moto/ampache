@@ -1,4 +1,4 @@
-/* vim:set tabstop=8 softtabstop=8 shiftwidth=8 noexpandtab: */
+/* vim:set tabstop=4 shiftwidth=4 expandtab: */
 /**
  *
  * LICENSE: GNU Affero General Public License, version 3 (AGPLv3)
@@ -116,7 +116,7 @@ input[type=button]:focus:active, input[type=submit]:focus:active {
 /***********************************************
            Login
 ***********************************************/
-body#loginPage {
+body#loginPage, body#registerPage {
     background-color: #000;
 }
 
@@ -146,10 +146,6 @@ body#loginPage {
 #loginPage #loginbox #passwordfield input:focus {
     border-color: #f1b720;
     box-shadow: 0 0 10px #9ecaed;
-}
-
-#loginPage #loginbox #remembermefield {
-    color: #eee;
 }
 
 .formValidation input {
