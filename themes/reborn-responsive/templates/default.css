@@ -44,6 +44,11 @@ body {
     font-size: 1.6rem;
     font-family: "DejaVuSansCondensed",Helvetica,Arial,sans-serif;
     font-weight: normal;
+    margin: .6em;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0 0 .5em 0;
 }
 
 
@@ -95,11 +100,10 @@ div#footer {
             Login Page
 ---------------------------------- */
 
-
-
-div#loginbox {
+div#loginbox,
+body#registerPage > div#maincontainer {
     margin: auto;
-    padding: 1em .25em 0em;
+    padding: 1em 0em;
     font-size: 2rem;
     width: 100%;
 }
@@ -164,6 +168,15 @@ div#submit-lostpassword {
     order: 1;
 }
 
+div.agreementContent {
+    margin: 0 0 .5em 0;
+}
+
+div.submit-registration {
+    display: flex;
+    justify-content: space-between;
+}
+
 /* -------------------------------
             Inputs
 ---------------------------------- */
@@ -176,7 +189,7 @@ input {
 
 input[type="submit"],input[type="checkbox"] {
     cursor: pointer;
-    padding: .2em;
+    padding: .2em .4em;
 }
 
 input[type="text"],input[type="password"] {
