@@ -177,6 +177,28 @@ div.submit-registration {
     justify-content: space-between;
 }
 
+
+/* -------------------------------
+            Main Page
+---------------------------------- */
+
+body#main-page {
+
+}
+
+div#notification {
+
+}
+
+div#notification.notification-out {
+    display: none;
+}
+
+div#header.header-float {
+
+}
+
+
 /* -------------------------------
             Inputs
 ---------------------------------- */
@@ -213,4 +235,18 @@ a.button, a#donate {
 
 a.button:hover, a#donate:hover {
     text-decoration: underline;
+}
+
+/* -------------------------------
+            Icons/Images
+---------------------------------- */
+
+svg.icon, svg.header-img {
+    height: 16px;
+    width: 16px;
+}
+
+svg.image {
+    height: 48px;
+    width: 48px;
 }
