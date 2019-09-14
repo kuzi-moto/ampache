@@ -467,7 +467,14 @@ $_SESSION['login'] = false;
 
             <div id="sidebar" class="sidebar-<?php echo AmpConfig::get('ui_fixed') ? 'fixed' : 'float'; ?>">
                 <div id="sidebar-header" class="<?php echo $isCollapsed ? 'sidebar-header-collapsed' : ''; ?>" >
-                    <span id="sidebar-header-content"><?php echo $isCollapsed ? '>>>' : '<<<'; ?></span>
+<?php
+                // remove when reborn has an icon for this
+                $icon_expand = UI::get_icon('expand', T_('Expand/Collapse'));
+                if (strstr($icon_expand, AmpConfig::get('web_path') . '/images/icon_expand.png')) {?>
+                    <span id="sidebar-header-content"></span>
+<?php } else {
+                    echo $icon_expand;
+                } ?>
                 </div>
                 <div id="sidebar-content" class="<?php echo $isCollapsed ? 'sidebar-content-collapsed' : ''; ?>" >
                     <?php require_once AmpConfig::get('prefix') . UI::find_template('sidebar.inc.php'); ?>
@@ -495,12 +502,10 @@ $_SESSION['login'] = false;
                         $('#sidebar-content-light').removeClass("sidebar-content-light-collapsed");
                         $('#sidebar-content').removeClass("sidebar-content-collapsed");
                         $('#sidebar-header').removeClass("sidebar-header-collapsed");
-                        $('#sidebar-header-content').text('<<<');
                     } else {
                         $('#sidebar-content').addClass("sidebar-content-collapsed");
                         $('#sidebar-header').addClass("sidebar-header-collapsed");
                         $('#sidebar-content-light').addClass("sidebar-content-light-collapsed");
-                        $('#sidebar-header-content').text('>>>');
                     }
 
                     $('#sidebar').show(500);

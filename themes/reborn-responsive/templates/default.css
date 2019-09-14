@@ -34,6 +34,11 @@
     box-sizing: border-box;
 }
 
+ul {
+    margin: 0;
+    padding: 0;
+}
+
  html {
     color: #222;
     font-size: 62.5%;
@@ -78,6 +83,16 @@ div#header {
     height: 128px;
     background-size: contain;
     margin: auto;
+}
+
+#main-page #headerlogo {
+    width: 100%;
+}
+
+#main-page #headerlogo > a > img {
+    width: 128px;
+    height: 128px;
+    background-size: contain;
 }
 
 #mobileheader {
@@ -172,6 +187,10 @@ div.agreementContent {
     margin: 0 0 .5em 0;
 }
 
+div.registerfield, div.submit-registration {
+    padding-bottom: 1em;
+}
+
 div.submit-registration {
     display: flex;
     justify-content: space-between;
@@ -197,6 +216,43 @@ div#notification.notification-out {
 div#header.header-float {
 
 }
+
+
+
+/* -------------------------------
+            Sidebar
+---------------------------------- */
+
+div#sidebar-content ul, div#sidebar-content-light ul {
+    list-style-type: none;
+}
+
+div.sidebar-content-light-collapsed {
+    display: none;
+}
+
+svg.header-img.expanded {
+
+}
+
+svg.header-img.collapsed {
+
+}
+
+#sidebar-header.sidebar-header-collapsed > svg.icon {
+    transform: rotate(.5turn);
+}
+
+
+
+/* -------------------------------
+       Albums of the Moment
+---------------------------------- */
+
+div.box_random_albums ul {
+    list-style-type: none;
+}
+
 
 
 /* -------------------------------
@@ -226,16 +282,21 @@ div > input.button {
     padding: .2em;
 }
 
+a {
+    text-decoration: none;
+}
+
+a:hover, a#donate:hover {
+    text-decoration: underline;
+}
+
 a.button, a#donate {
     padding: .2em .4em;
     min-width: .5em;
     /* border: 1px solid #ff9d00; */
-    text-decoration: none;
 }
 
-a.button:hover, a#donate:hover {
-    text-decoration: underline;
-}
+
 
 /* -------------------------------
             Icons/Images

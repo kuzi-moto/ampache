@@ -23,3 +23,30 @@
            General style rules
 ***********************************************/
 
+body {
+  background-color: rgb(73, 72, 72);
+}
+
+a {
+  color: silver;
+}
+
+label, div {
+  color: white;
+}
+
+#loginPage #headerlogo, #registerPage #headerlogo {
+  background-image: url('../images/ampache-dark.png');
+}
+
+
+/*
+white
+whitesmoke
+gainsboro
+lightgray
+silver
+darkgray
+gray
+dimgray
+*/

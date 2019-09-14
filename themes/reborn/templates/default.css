@@ -160,6 +160,11 @@ input[type=button]:focus:active, input[type=submit]:focus:active {
     color: #c33;
 }
 
+div#autoupdate > span {
+	color: FF0000;
+}
+
+
 /***********************************************
            Main
 ***********************************************/
@@ -514,6 +519,14 @@ input[type=button]:focus:active, input[type=submit]:focus:active {
 
 #sidebar-header span {
     line-height: 15px;
+}
+
+span#sidebar-header-content::after {
+	content: "<<<";
+}
+
+#sidebar-header.sidebar-header-collapsed > span#sidebar-header-content::after {
+	content: ">>>";
 }
 
 .sidebar-header-collapsed {
