@@ -34,12 +34,17 @@
     box-sizing: border-box;
 }
 
+a {
+    text-decoration: none;
+}
+
 ul {
     margin: 0;
     padding: 0;
+    list-style-type: none;
 }
 
- html {
+html {
     color: #222;
     font-size: 62.5%;
     line-height: 1.4;
@@ -49,7 +54,7 @@ body {
     font-size: 1.6rem;
     font-family: "DejaVuSansCondensed",Helvetica,Arial,sans-serif;
     font-weight: normal;
-    margin: .6em;
+    margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -67,6 +72,10 @@ div#maincontainer {
     flex-direction: column;
 }
 
+div#content, div#loginbox {
+    margin: 0 .5em;
+}
+
 
 
 
@@ -81,17 +90,8 @@ div#header {
 #headerlogo {
     width: 128px;
     height: 128px;
-    background-size: contain;
     margin: auto;
-}
-
-#main-page #headerlogo {
-    width: 100%;
-}
-
-#main-page #headerlogo > a > img {
-    width: 128px;
-    height: 128px;
+    display: inline-block;
     background-size: contain;
 }
 
@@ -117,10 +117,8 @@ div#footer {
 
 div#loginbox,
 body#registerPage > div#maincontainer {
-    margin: auto;
     padding: 1em 0em;
     font-size: 2rem;
-    width: 100%;
 }
 
 div#loginbox > h2 {
@@ -217,17 +215,25 @@ div#header.header-float {
 
 }
 
+div#autoupdate > span {
+    color: red;
+}
+
 
 
 /* -------------------------------
             Sidebar
 ---------------------------------- */
 
-div#sidebar-content ul, div#sidebar-content-light ul {
-    list-style-type: none;
+div#sidebar-content-light {
+    display: none;
 }
 
-div.sidebar-content-light-collapsed {
+div#sidebar-content-light.sidebar-content-light-collapsed {
+    display: unset;
+}
+
+div#sidebar-content.sidebar-content-collapsed {
     display: none;
 }
 
@@ -251,6 +257,58 @@ svg.header-img.collapsed {
 
 div.box_random_albums ul {
     list-style-type: none;
+}
+
+div.box_random_albums > div > div {
+    display: grid;
+    grid-template-columns: auto auto;
+    row-gap: .5em;
+    column-gap: .5em;
+}
+
+div.random_album {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+}
+
+div.random_album > .art_album > .item_art > a > img {
+
+}
+
+.album_name {
+    font-size: .8em;
+    max-width: 50%;
+}
+
+li.current-rating {
+    display: none;
+}
+
+
+
+/************************************************/
+/*        Styles for the star ratings           */
+/************************************************/
+
+.star-rating ul,
+.star-rating a:hover,
+.star-rating .current-rating {
+    background: url(../images/ratings/star_rating.png) left -1000px repeat-x;
+}
+.star-rating ul {
+    position:relative;
+    width:80px;
+    height:15px;
+    overflow:hidden;
+    list-style:none;
+    margin:0;
+    padding:0;
+    background-position: left top;
+}
+.star-rating li {
+    display: inline;
 }
 
 
@@ -282,11 +340,7 @@ div > input.button {
     padding: .2em;
 }
 
-a {
-    text-decoration: none;
-}
-
-a:hover, a#donate:hover {
+a:hover {
     text-decoration: underline;
 }
 
@@ -311,3 +365,5 @@ svg.image {
     height: 48px;
     width: 48px;
 }
+
+

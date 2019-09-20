@@ -34,6 +34,14 @@ base = "default.css|screen"
 ; Example: "Dark,Blue,Red"
 colors = "Dark,Light"
 
+; Theme Albums of the Moment art size
+; 1 - 100x100
+; 2 - 128x128
+; 3 - 80x80
+; 4 - 200x200
+; 5 - 32x32
+aofm_size = ""
+
 ; Theme Author
 author = "kuzi-moto"
 

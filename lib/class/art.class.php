@@ -1860,6 +1860,7 @@ class Art extends database_object
             }
         }
         echo "<img src=\"" . $imgurl . "\" alt=\"" . $name . "\" height=\"" . $size['height'] . "\" width=\"" . $size['width'] . "\" />";
+        echo '<div class="album_name">' . $name . '</div>';
 
         if ($size['height'] >= 150) {
             echo "<div class=\"item_art_play\">";

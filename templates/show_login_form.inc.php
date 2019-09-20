@@ -99,9 +99,9 @@ if (strpos($user_agent, 'Mobile') && (strpos($user_agent, 'Android') || strpos($
 } ?>
             </form>
             <?php if ($mobile_session) {
-        echo "<div id=\"mobileheader\"><!-- This is the header -->";
-        echo "<h1 id=\"headerlogo\"></h1>";
-        echo "</div>";
+        echo '<div id="mobileheader"><!-- This is the header -->';
+        echo '<img id="headerlogo" title="' . AmpConfig::get('site_title') . '" alt="' . AmpConfig::get('site_title') . '" />';
+        echo '</div>';
     } ?>
             <?php
             UI::show_footer();

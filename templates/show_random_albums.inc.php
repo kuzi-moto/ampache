@@ -34,7 +34,7 @@ if ($albums) {
         <div id="album_<?php echo $album_id ?>" class="art_album libitem_menu">
             <?php
             if (Art::is_enabled()) {
-                $thumb = 1;
+                $thumb = 12;
                 if (!UI::is_grid_view('album')) {
                     $thumb     = 11;
                     $show_play = false;

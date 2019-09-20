@@ -35,7 +35,12 @@ label, div {
   color: white;
 }
 
-#loginPage #headerlogo, #registerPage #headerlogo {
+#main-page #header,
+#main-page #footer {
+  background-color: #222;
+}
+
+#headerlogo {
   background-image: url('../images/ampache-dark.png');
 }
 
@@ -49,4 +54,6 @@ silver
 darkgray
 gray
 dimgray
+73,72,72
+#222
 */
