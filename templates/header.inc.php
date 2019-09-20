@@ -283,6 +283,16 @@ $_SESSION['login'] = false;
                 init_slideshow_check();
             });
         </script>
+        <script type="text/javascript">
+            /* Set the width of the side navigation to 250px */
+            function toggle_sidebar() {
+                if ($("#sidebar").hasClass("show")) {
+                    $("#sidebar").removeClass("show");
+                } else {
+                    $("#sidebar").addClass("show");
+                }
+            }
+        </script>
     </head>
     <body id="main-page">
         <div id="aslideshow">
@@ -361,11 +371,10 @@ $_SESSION['login'] = false;
         <div id="notification" class="notification-out"><?php echo UI::get_icon('info', T_('Information')); ?><span id="notification-content"></span></div>
         <div id="maincontainer">
             <div id="header" class="header-<?php echo AmpConfig::get('ui_fixed') ? 'fixed' : 'float'; ?>"><!-- This is the header -->
-                <h1 id="headerlogo">
-                  <a href="<?php echo $web_path; ?>/index.php">
-                    <img src="<?php echo UI::get_logo_url(); ?>" title="<?php echo AmpConfig::get('site_title'); ?>" alt="<?php echo AmpConfig::get('site_title'); ?>" />
-                  </a>
-                </h1>
+                <span onclick="toggle_sidebar()" class="openbtn">Menu</span>
+                <a href="<?php echo $web_path; ?>/index.php">
+                    <img id="headerlogo" src="<?php echo UI::get_logo_url(); ?>" title="<?php echo AmpConfig::get('site_title'); ?>" alt="<?php echo AmpConfig::get('site_title'); ?>" />
+                </a>
                 <div id="headerbox">
                     <?php
                         UI::show_box_top('', 'box box_headerbox');
@@ -466,6 +475,7 @@ $_SESSION['login'] = false;
             ?>
 
             <div id="sidebar" class="sidebar-<?php echo AmpConfig::get('ui_fixed') ? 'fixed' : 'float'; ?>">
+                <a href="javascript:void(0)" class="closebtn" onclick="toggle_sidebar()">&times;</a>
                 <div id="sidebar-header" class="<?php echo $isCollapsed ? 'sidebar-header-collapsed' : ''; ?>" >
 <?php
                 // remove when reborn has an icon for this
@@ -531,7 +541,6 @@ $_SESSION['login'] = false;
                         echo '<div id=update_notify>';
                         if (AmpConfig::get('autoupdate') && AutoUpdate::is_update_available()) {
                             AutoUpdate::show_new_version();
-                            echo '<br />';
                         }
                         $count_temp_playlist = count(Core::get_global('user')->playlist->get_items());
 

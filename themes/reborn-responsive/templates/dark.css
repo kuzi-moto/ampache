@@ -44,6 +44,9 @@ label, div {
   background-image: url('../images/ampache-dark.png');
 }
 
+#sidebar svg {
+  fill: white;
+}
 
 /*
 white

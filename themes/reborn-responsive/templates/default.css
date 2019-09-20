@@ -215,6 +215,11 @@ div#header.header-float {
 
 }
 
+div#header.header-float #headerlogo {
+    width: 32px;
+    height: 32px;
+}
+
 div#autoupdate > span {
     color: red;
 }
@@ -224,6 +229,35 @@ div#autoupdate > span {
 /* -------------------------------
             Sidebar
 ---------------------------------- */
+
+#sidebar {
+    height: 100%;
+    width: 0; /* Changed using JS */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px;
+    transition: 0.5s;
+}
+
+#sidebar.show {
+    width: 200px;
+}
+
+.openbtn {
+    cursor: pointer;
+}
+
+#sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
 
 div#sidebar-content-light {
     display: none;
