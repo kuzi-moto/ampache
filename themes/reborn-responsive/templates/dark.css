@@ -44,8 +44,13 @@ label, div {
   background-image: url('../images/ampache-dark.png');
 }
 
+#header svg,
 #sidebar svg {
   fill: white;
+}
+
+#sidebar .sb1.active > a > svg {
+  fill: orange;
 }
 
 /*

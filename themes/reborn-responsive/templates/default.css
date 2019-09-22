@@ -95,6 +95,16 @@ div#header {
     background-size: contain;
 }
 
+div#header.header-float #headerlogo {
+    width: 48px;
+    height: 48px;
+}
+
+#header svg {
+    width: 48px;
+    height: 48px;
+}
+
 #mobileheader {
     padding-bottom: 1em;
 }
@@ -215,11 +225,6 @@ div#header.header-float {
 
 }
 
-div#header.header-float #headerlogo {
-    width: 32px;
-    height: 32px;
-}
-
 div#autoupdate > span {
     color: red;
 }
@@ -245,6 +250,27 @@ div#autoupdate > span {
 
 #sidebar.show {
     width: 200px;
+}
+
+#sidebar.sidebar-collapsed.show {
+    width: 100px;
+}
+
+#sidebar-tabs li {
+    display: inline;
+}
+
+#sidebar-page {
+    float: left;
+    width: 100%;
+}
+
+#sidebar-page li {
+    display: block;
+}
+
+#sidebar-page svg {
+    float: right;
 }
 
 .openbtn {
@@ -295,16 +321,16 @@ div.box_random_albums ul {
 
 div.box_random_albums > div > div {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
     row-gap: .5em;
     column-gap: .5em;
+    justify-items: center;
+    align-content: space-between;
 }
 
 div.random_album {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin: auto;
+    border: 1px solid black;
+    max-width: 150px;
 }
 
 div.random_album > .art_album > .item_art > a > img {
@@ -313,11 +339,68 @@ div.random_album > .art_album > .item_art > a > img {
 
 .album_name {
     font-size: .8em;
-    max-width: 50%;
 }
 
 li.current-rating {
     display: none;
+}
+
+
+
+/* -------------------------------
+       Recently Played
+---------------------------------- */
+
+.box_recently_played thead,
+.box_recently_played tfoot {
+    display: none;
+}
+
+.box_recently_played tr {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+        "play song ."
+        "play album username"
+        "play artist lastplayed";
+    grid-gap: 1px;
+}
+
+.box_recently_played td {
+    background-color: dimgray;
+}
+
+.cel_play {
+    grid-area: play;
+}
+
+.cel_song {
+    grid-area: song;
+}
+
+.cel_album {
+    grid-area: album;
+}
+
+.cel_artist {
+    grid-area: artist;
+}
+
+td.cel_year {
+    /*grid-area: year;*/
+}
+
+.cel_username {
+    grid-area: username;
+}
+
+.cel_lastplayed {
+    grid-area: lastplayed;
+}
+
+td.cel_add {
+    /* grid-area: add; */
 }
 
 
@@ -391,13 +474,11 @@ a.button, a#donate {
 ---------------------------------- */
 
 svg.icon, svg.header-img {
-    height: 16px;
-    width: 16px;
+    height: 28px;
+    width: 28px;
 }
 
 svg.image {
     height: 48px;
     width: 48px;
 }
-
-

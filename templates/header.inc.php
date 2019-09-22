@@ -371,7 +371,7 @@ $_SESSION['login'] = false;
         <div id="notification" class="notification-out"><?php echo UI::get_icon('info', T_('Information')); ?><span id="notification-content"></span></div>
         <div id="maincontainer">
             <div id="header" class="header-<?php echo AmpConfig::get('ui_fixed') ? 'fixed' : 'float'; ?>"><!-- This is the header -->
-                <span onclick="toggle_sidebar()" class="openbtn">Menu</span>
+                <span onclick="toggle_sidebar()" class="openbtn"><?php echo UI::get_icon("menu", T_("Sidebar")); ?></span>
                 <a href="<?php echo $web_path; ?>/index.php">
                     <img id="headerlogo" src="<?php echo UI::get_logo_url(); ?>" title="<?php echo AmpConfig::get('site_title'); ?>" alt="<?php echo AmpConfig::get('site_title'); ?>" />
                 </a>
@@ -496,30 +496,22 @@ $_SESSION['login'] = false;
             <!-- Handle collapsed visibility -->
             <script type="text/javascript">
             $('#sidebar-header').click(function(){
-                var newstate = "collapsed";
+                var newstate;
                 if ($('#sidebar-header').hasClass("sidebar-header-collapsed")) {
                     newstate = "expanded";
-                }
-
-                if (newstate != "expanded") {
-                    $("#content").addClass("content-left-wild", 600);
+                    $('#sidebar').removeClass("sidebar-collapsed");
+                    $("#content").removeClass("content-left-wild");
+                    $('#sidebar-content-light').removeClass("sidebar-content-light-collapsed");
+                    $('#sidebar-content').removeClass("sidebar-content-collapsed");
+                    $('#sidebar-header').removeClass("sidebar-header-collapsed");
                 } else {
-                    $("#content").removeClass("content-left-wild", 1000);
+                    newstate = "collapsed"
+                    $('#sidebar').addClass("sidebar-collapsed");
+                    $("#content").addClass("content-left-wild");
+                    $('#sidebar-content').addClass("sidebar-content-collapsed");
+                    $('#sidebar-header').addClass("sidebar-header-collapsed");
+                    $('#sidebar-content-light').addClass("sidebar-content-light-collapsed");
                 }
-
-                $('#sidebar').hide(500, function() {
-                    if (newstate == "expanded") {
-                        $('#sidebar-content-light').removeClass("sidebar-content-light-collapsed");
-                        $('#sidebar-content').removeClass("sidebar-content-collapsed");
-                        $('#sidebar-header').removeClass("sidebar-header-collapsed");
-                    } else {
-                        $('#sidebar-content').addClass("sidebar-content-collapsed");
-                        $('#sidebar-header').addClass("sidebar-header-collapsed");
-                        $('#sidebar-content-light').addClass("sidebar-content-light-collapsed");
-                    }
-
-                    $('#sidebar').show(500);
-                });
 
                 $.cookie('sidebar_state', newstate, { expires: 30, path: '/'});
             });
