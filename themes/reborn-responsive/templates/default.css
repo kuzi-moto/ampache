@@ -73,9 +73,12 @@ div#maincontainer {
 }
 
 div#content, div#loginbox {
-    margin: 0 .5em;
+    margin: .5em;
 }
 
+div#ajax-loading {
+    margin: .5em;
+}
 
 
 
@@ -84,15 +87,19 @@ div#content, div#loginbox {
 ---------------------------------- */
 
 div#header {
-    display:flex;
+    display: flex;
 }
 
 #headerlogo {
     width: 128px;
     height: 128px;
     margin: auto;
-    display: inline-block;
+    display: block;
     background-size: contain;
+}
+
+#headerlogo::before {
+    display: none;
 }
 
 div#header.header-float #headerlogo {
@@ -225,8 +232,25 @@ div#header.header-float {
 
 }
 
+div#autoupdate {
+    padding: .5em;
+    width: 100%;
+    word-break: break-all;
+    font-size: .8em;
+}
+
+div#autoupdate > p {
+    margin: 0;
+}
+
 div#autoupdate > span {
+    display: block;
     color: red;
+    font-size: 1.2em;
+}
+
+div#ajax-loading {
+
 }
 
 
@@ -271,6 +295,28 @@ div#autoupdate > span {
 
 #sidebar-page svg {
     float: right;
+    transform: rotate(90deg);
+    transition: .1s;
+}
+
+#sidebar-page svg.expanded {
+    transform: rotate(-90deg);
+}
+
+.sb2 > .collapsed > .sb3 {
+    display: none;
+}
+
+.sb2 .expanded > ul {
+    display: block;
+}
+
+.sb2 .header {
+    padding: 0 .5em;
+}
+
+.sb3 {
+    padding: 0 0 .5em 1em;
 }
 
 .openbtn {
@@ -285,16 +331,19 @@ div#autoupdate > span {
     margin-left: 50px;
 }
 
+div#sidebar-content svg {
+}
+
+div#sidebar-content.sidebar-content-collapsed {
+    display: none;
+}
+
 div#sidebar-content-light {
     display: none;
 }
 
 div#sidebar-content-light.sidebar-content-light-collapsed {
     display: unset;
-}
-
-div#sidebar-content.sidebar-content-collapsed {
-    display: none;
 }
 
 svg.header-img.expanded {
@@ -321,16 +370,16 @@ div.box_random_albums ul {
 
 div.box_random_albums > div > div {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    row-gap: .5em;
+    grid-template-columns: 1fr;
+    grid-template-row: 1fr;;
+    row-gap: 1em;
     column-gap: .5em;
     justify-items: center;
     align-content: space-between;
 }
 
 div.random_album {
-    border: 1px solid black;
-    max-width: 150px;
+    width: 100%;
 }
 
 div.random_album > .art_album > .item_art > a > img {
@@ -358,20 +407,36 @@ li.current-rating {
 
 .box_recently_played tr {
     display: grid;
-    grid-template-columns: auto 1fr 1fr;
-    grid-template-rows: auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
     grid-template-areas:
-        "play song ."
-        "play album username"
-        "play artist lastplayed";
-    grid-gap: 1px;
+        "song username lastplayed"
+        "album artist artist";
+    padding: .5em 0;
+    justify-items: start;
+    align-items: center;
+    padding: .5em 1em;
+    margin-bottom: 1em;
+    transition: 0.3s;
+}
+
+.box_recently_played .box-content {
+}
+
+.box_recently_played tr:last-child {
+    border-bottom: none;
+}
+
+.tabledata {
+    width: 100%;
 }
 
 .box_recently_played td {
-    background-color: dimgray;
+    padding: 0 .25em;
 }
 
-.cel_play {
+.activeMediaTable td.cel_play {
+    display: none;
     grid-area: play;
 }
 
@@ -387,8 +452,9 @@ li.current-rating {
     grid-area: artist;
 }
 
-td.cel_year {
-    /*grid-area: year;*/
+.activeMediaTable td.cel_year {
+    display: none;
+    grid-area: year;
 }
 
 .cel_username {
@@ -399,8 +465,9 @@ td.cel_year {
     grid-area: lastplayed;
 }
 
-td.cel_add {
-    /* grid-area: add; */
+.activeMediaTable td.cel_add {
+    display: none;
+    grid-area: add;
 }
 
 
@@ -424,6 +491,7 @@ td.cel_add {
     padding:0;
     background-position: left top;
 }
+
 .star-rating li {
     display: inline;
 }
@@ -473,7 +541,8 @@ a.button, a#donate {
             Icons/Images
 ---------------------------------- */
 
-svg.icon, svg.header-img {
+svg.icon,
+.sb2 svg {
     height: 28px;
     width: 28px;
 }

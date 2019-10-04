@@ -27,12 +27,20 @@ body {
   background-color: rgb(73, 72, 72);
 }
 
+.box_recently_played tr,
+div.random_album,
+#ajax-loading,
+div#autoupdate {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    background-color: dimgray;
+}
+
 a {
-  color: silver;
+  color: white;
 }
 
 label, div {
-  color: white;
+  color: silver;
 }
 
 #main-page #header,
