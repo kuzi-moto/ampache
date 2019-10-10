@@ -36,6 +36,8 @@ class Ampachelyricwiki
      */
     public function __construct()
     {
+        $this->description = T_('Get lyrics from LyricWiki');
+
         return true;
     } // constructor
 
@@ -61,6 +63,7 @@ class Ampachelyricwiki
      * load
      * This is a required plugin function; here it populates the prefs we
      * need for this object.
+     * @param User $user
      */
     public function load($user)
     {

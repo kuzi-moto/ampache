@@ -367,7 +367,7 @@ class Song extends database_object implements media, library_item
         $album_mbid_group      = $results['mb_albumid_group'];
         $artist_mbid           = $results['mb_artistid'];
         $albumartist_mbid      = $results['mb_albumartistid'];
-        $disk                  = $results['disk'] ?: 1;
+        $disk                  = (Album::sanitize_disk($results['disk']) > 0) ? Album::sanitize_disk($results['disk']) : 1;
         $year                  = Catalog::normalize_year($results['year'] ?: 0);
         $comment               = $results['comment'];
         $tags                  = $results['genre']; // multiple genre support makes this an array
@@ -592,6 +592,9 @@ class Song extends database_object implements media, library_item
      * can_scrobble
      *
      * return a song id based on a last.fm-style search in the database
+     * @param string $song_name
+     * @param string $artist_name
+     * @param string $album_name
      * @return string
      */
     public static function can_scrobble($song_name, $artist_name, $album_name, $song_mbid = '', $artist_mbid = '', $album_mbid = '')
@@ -599,9 +602,9 @@ class Song extends database_object implements media, library_item
         // by default require song, album, artist for any searches
         $sql = 'SELECT `song`.`id` FROM `song` LEFT JOIN `album` ON `album`.`id` = `song`.`album` LEFT JOIN `artist` ON `artist`.`id` = `song`.`artist` ' .
                 'LEFT JOIN `artist` AS `album_artist` ON `album_artist`.`id` = `album`.`album_artist` ' .
-                "WHERE `song`.`title` = '" . $song_name . "' AND " .
-                "(`artist`.`name` = '" . $artist_name . "' OR LTRIM(CONCAT(COALESCE(`artist`.`prefix`, ''), `artist`.`name`)) = '" . $artist_name . "') AND " .
-                "(`album`.`name` = '" . $album_name . "' OR LTRIM(CONCAT(COALESCE(`album`.`prefix`, ''), `album`.`name`)) = '" . $album_name . "')";
+                "WHERE `song`.`title` = '" . Dba::escape($song_name) . "' AND " .
+                "(`artist`.`name` = '" . Dba::escape($artist_name) . "' OR LTRIM(CONCAT(COALESCE(`artist`.`prefix`, ''), `artist`.`name`)) = '" . Dba::escape($artist_name) . "') AND " .
+                "(`album`.`name` = '" . Dba::escape($album_name) . "' OR LTRIM(CONCAT(COALESCE(`album`.`prefix`, ''), `album`.`name`)) = '" . Dba::escape($album_name) . "')";
         if ($song_mbid) {
             $sql .= " AND `song`.`mbid` = '" . $song_mbid . "'";
         }
@@ -635,7 +638,7 @@ class Song extends database_object implements media, library_item
             return parent::get_from_cache('song_data', $song_id);
         }
 
-        $sql        = "SELECT * FROM song_data WHERE `song_id` = ?";
+        $sql        = "SELECT * FROM `song_data` WHERE `song_id` = ?";
         $db_results = Dba::read($sql, array($song_id));
 
         $results = Dba::fetch_assoc($db_results);
@@ -789,8 +792,16 @@ class Song extends database_object implements media, library_item
             $where .= " AND `song`.`track` = ?";
             $params[] = $data['track'];
         }
-
+        $sql .= " INNER JOIN `artist` ON `artist`.`id` = `song`.`artist`";
         $sql .= " INNER JOIN `album` ON `album`.`id` = `song`.`album`";
+        
+        if ($data['mb_artistid']) {
+            $where .= " AND `artist`.`mbid` = ?";
+            $params[] = $data['mb_albumid'];
+        } else {
+            $where .= " AND `artist`.`name` = ?";
+            $params[] = $data['artist'];
+        }
         if ($data['mb_albumid']) {
             $where .= " AND `album`.`mbid` = ?";
             $params[] = $data['mb_albumid'];
@@ -1082,7 +1093,7 @@ class Song extends database_object implements media, library_item
      * This takes a key'd array of data does any cleaning it needs to
      * do and then calls the helper functions as needed.
      * @param array $data
-     * @return int
+     * @return integer
      */
     public function update(array $data)
     {
@@ -1394,6 +1405,10 @@ class Song extends database_object implements media, library_item
         //migrate stats for the old album
         Stats::migrate('artist', $song->artist, $new_artist);
         UserActivity::migrate('artist', $song->artist, $new_artist);
+        Recommendation::migrate('artist', $song->artist, $new_artist);
+        Share::migrate('artist', $song->artist, $new_artist);
+        Shoutbox::migrate('artist', $song->artist, $new_artist);
+        Tag::migrate('artist', $song->artist, $new_artist);
         Userflag::migrate('artist', $song->artist, $new_artist);
         Rating::migrate('artist', $song->artist, $new_artist);
         Art::migrate('artist', $song->artist, $new_artist);
@@ -1413,6 +1428,10 @@ class Song extends database_object implements media, library_item
         //migrate stats for the old album
         Stats::migrate('album', $song->album, $new_album);
         UserActivity::migrate('album', $song->album, $new_album);
+        Recommendation::migrate('album', $song->album, $new_album);
+        Share::migrate('album', $song->album, $new_album);
+        Shoutbox::migrate('album', $song->album, $new_album);
+        Tag::migrate('album', $song->album, $new_album);
         Userflag::migrate('album', $song->album, $new_album);
         Rating::migrate('album', $song->album, $new_album);
         Art::migrate('album', $song->album, $new_album);
@@ -1834,14 +1853,16 @@ class Song extends database_object implements media, library_item
      * @param boolean $local
      * @return string
      */
-    public static function generic_play_url($object_type, $object_id, $additional_params, $player = '', $local = false)
+    public static function generic_play_url($object_type, $object_id, $additional_params, $player = '', $local = false, $uid = false)
     {
         $media = new $object_type($object_id);
         if (!$media->id) {
             return '';
         }
 
-        $uid  = Core::get_global('user')->id ? scrub_out(Core::get_global('user')->id) : '-1';
+        if (!$uid) {
+            $uid  = Core::get_global('user')->id ? scrub_out(Core::get_global('user')->id) : '-1';
+        }
         $type = $media->type;
 
         // Checking if the media is gonna be transcoded into another type
@@ -1882,9 +1903,9 @@ class Song extends database_object implements media, library_item
      * @param string $player
      * @return string
      */
-    public static function play_url($oid, $additional_params = '', $player = '', $local = false)
+    public static function play_url($oid, $additional_params = '', $player = '', $local = false, $uid = false)
     {
-        return self::generic_play_url('song', $oid, $additional_params, $player, $local);
+        return self::generic_play_url('song', $oid, $additional_params, $player, $local, $uid);
     }
 
     /**
@@ -2155,15 +2176,15 @@ class Song extends database_object implements media, library_item
     public static function get_custom_play_actions()
     {
         $actions = array();
-        $i       = 0;
-        while (AmpConfig::get('custom_play_action_title_' . $i)) {
+        $count   = 0;
+        while (AmpConfig::get('custom_play_action_title_' . $count)) {
             $actions[] = array(
-                'index' => ($i + 1),
-                'title' => AmpConfig::get('custom_play_action_title_' . $i),
-                'icon' => AmpConfig::get('custom_play_action_icon_' . $i),
-                'run' => AmpConfig::get('custom_play_action_run_' . $i),
+                'index' => ($count + 1),
+                'title' => AmpConfig::get('custom_play_action_title_' . $count),
+                'icon' => AmpConfig::get('custom_play_action_icon_' . $count),
+                'run' => AmpConfig::get('custom_play_action_run_' . $count),
             );
-            ++$i;
+            ++$count;
         }
 
         return $actions;

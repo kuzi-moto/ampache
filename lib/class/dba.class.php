@@ -97,12 +97,14 @@ class Dba
 
         if (!$stmt) {
             self::$_error = json_encode($dbh->errorInfo());
-            debug_event('dba.class', 'Error: ' . json_encode($dbh->errorInfo()), 1);
+            debug_event('dba.class', 'Error_query SQL: ' . $sql, 5);
+            debug_event('dba.class', 'Error_query MSG: ' . json_encode($dbh->errorInfo()), 1);
             self::disconnect();
         } else {
             if ($stmt->errorCode() && $stmt->errorCode() != '00000') {
                 self::$_error = json_encode($stmt->errorInfo());
-                debug_event('dba.class', 'Error: ' . json_encode($stmt->errorInfo()), 1);
+                debug_event('dba.class', 'Error_query SQL: ' . $sql, 5);
+                debug_event('dba.class', 'Error_query MSG: ' . json_encode($stmt->errorInfo()), 1);
                 self::finish($stmt);
                 self::disconnect();
 
@@ -229,6 +231,7 @@ class Dba
      * This emulates the mysql_num_rows function which is really
      * just a count of rows returned by our select statement, this
      * doesn't work for updates or inserts.
+     * @return integer
      */
     public static function num_rows($resource)
     {
@@ -258,6 +261,7 @@ class Dba
      * affected_rows
      *
      * This emulates the mysql_affected_rows function
+     * @return integer
      */
     public static function affected_rows($resource)
     {
@@ -337,6 +341,7 @@ class Dba
      * check_database
      *
      * Make sure that we can connect to the database
+     * @return boolean
      */
     public static function check_database()
     {
@@ -358,6 +363,7 @@ class Dba
      *
      * Checks to make sure that you have inserted the database
      * and that the user you are using has access to it.
+     * @return boolean
      */
     public static function check_database_inserted()
     {
@@ -424,6 +430,7 @@ class Dba
      * disconnect
      *
      * This nukes the dbh connection, this isn't used very often...
+     * @return true
      */
     public static function disconnect($database = '')
     {
@@ -442,6 +449,7 @@ class Dba
 
     /**
      * insert_id
+     * @return string|null
      */
     public static function insert_id()
     {

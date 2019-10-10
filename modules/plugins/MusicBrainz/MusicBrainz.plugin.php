@@ -39,6 +39,8 @@ class AmpacheMusicBrainz
      */
     public function __construct()
     {
+        $this->description = T_('MusicBrainz metadata integration');
+
         return true;
     }
 
@@ -64,6 +66,7 @@ class AmpacheMusicBrainz
      * load
      * This is a required plugin function; here it populates the prefs we
      * need for this object.
+     * @param User $user
      */
     public function load($user)
     {

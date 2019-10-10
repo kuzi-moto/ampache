@@ -20,6 +20,16 @@
  *
  */
 ?>
+<?php
+// strings for the main page and templates
+$t_songs     = T_('Songs');
+$t_artists   = T_('Artists');
+$t_albums    = T_('Albums');
+$t_playlists = T_('Playlists');
+$t_tagcloud  = T_('Tag Cloud');
+$t_expander  = T_('Expand/Collapse');
+$t_search    = T_('Search');
+?>
 <ul class="sb2" id="sb_home">
     <li class="<?php if (!(filter_has_var(INPUT_COOKIE, 'sb_browse_music'))) { echo 'collapsed'; } else { echo $_COOKIE['sb_browse_music']; } ?>"><h4 class="header"><span class="sidebar-header-title" title="<?php echo T_('Browse Music'); ?>"><?php echo T_('Music'); ?></span><?php echo UI::get_icon('all', T_('Expand/Collapse'), 'browse_music', 'header-img'); ?></h4>
         <?php
@@ -29,17 +39,14 @@
         }
         ?>
         <ul class="sb3" id="sb_browse_music">
-            <li id="sb_home_browse_music_songTitle"><a href="<?php echo $web_path; ?>/browse.php?action=song"><?php echo T_('Song Titles'); ?></a></li>
-            <li id="sb_home_browse_music_album"><a href="<?php echo $web_path; ?>/mashup.php?action=album"><?php echo T_('Albums'); ?></a></li>
-            <li id="sb_home_browse_music_artist"><a href="<?php echo $web_path; ?>/mashup.php?action=artist"><?php echo T_('Artists'); ?></a></li>
+            <li id="sb_home_browse_music_songTitle"><a href="<?php echo $web_path; ?>/browse.php?action=song"><?php echo $t_songs; ?></a></li>
+            <li id="sb_home_browse_music_album"><a href="<?php echo $web_path; ?>/mashup.php?action=album"><?php echo $t_albums; ?></a></li>
+            <li id="sb_home_browse_music_artist"><a href="<?php echo $web_path; ?>/mashup.php?action=artist"><?php echo $t_artists; ?></a></li>
             <?php if (AmpConfig::get('label')) {
             ?>
             <li id="sb_home_browse_music_label"><a href="<?php echo $web_path ?>/browse.php?action=label"><?php echo T_('Labels') ?></a></li>
             <?php
         } ?>
-            <li id="sb_home_browse_music_tags"><a href="<?php echo $web_path; ?>/browse.php?action=tag"><?php echo T_('Tag Cloud'); ?></a></li>
-            <li id="sb_home_browse_music_playlist"><a href="<?php echo $web_path; ?>/browse.php?action=playlist"><?php echo T_('Playlists'); ?></a></li>
-            <li id="sb_home_browse_music_smartPlaylist"><a href="<?php echo $web_path; ?>/browse.php?action=smartplaylist"><?php echo T_('Smart Playlists'); ?></a></li>
             <?php if (AmpConfig::get('channel')) {
             ?>
             <li id="sb_home_browse_music_channel"><a href="<?php echo $web_path ?>/browse.php?action=channel"><?php echo T_('Channels') ?></a></li>
@@ -91,11 +98,40 @@
                 <li id="sb_home_browse_video_video"><a href="<?php echo $web_path ?>/browse.php?action=personal_video"><?php echo T_('Personal Videos') ?></a></li>
           <?php
             } ?>
-                <li id="sb_home_browse_video_tagsVideo"><a href="<?php echo $web_path ?>/browse.php?action=tag&type=video"><?php echo T_('Tag Cloud') ?></a></li>
+                <li id="sb_home_browse_video_tagsVideo"><a href="<?php echo $web_path ?>/browse.php?action=tag&type=video"><?php echo $t_tagcloud ?></a></li>
             </ul>
         </li>
     <?php
         } ?>
+    <li class="<?php if (!(filter_has_var(INPUT_COOKIE, 'sb_random'))) { echo 'collapsed'; } else { echo $_COOKIE['sb_random']; } ?>"">
+        <h4 class="header"><span class="sidebar-header-title" title="<?php echo T_('Random'); ?>"><?php echo T_('Random'); ?></span><?php echo UI::get_icon('all', T_('Expand/Collapse'), 'random', 'header-img'); ?></h4>
+        <ul class="sb3" id="sb_home_random">
+            <li id="sb_home_random_album"><?php echo Ajax::text('?page=random&action=song', T_('Song'), 'home_random_song'); ?></li>
+            <li id="sb_home_random_album"><?php echo Ajax::text('?page=random&action=album', T_('Album'), 'home_random_album'); ?></li>
+            <li id="sb_home_random_artist"><?php echo Ajax::text('?page=random&action=artist', T_('Artist'), 'home_random_artist'); ?></li>
+            <li id="sb_home_random_playlist"><?php echo Ajax::text('?page=random&action=playlist', T_('Playlist'), 'home_random_playlist'); ?></li>
+            <li id="sb_home_random_advanced"><a href="<?php echo $web_path; ?>/random.php?action=advanced&type=song"><?php echo T_('Advanced'); ?></a></li>
+        </ul>
+    </li>
+    <li class="<?php if (!(filter_has_var(INPUT_COOKIE, 'sb_search'))) { echo 'collapsed'; } else { echo $_COOKIE['sb_search']; } ?>"">
+        <h4 class="header"><span class="sidebar-header-title" title="<?php echo T_('Search'); ?>"><?php echo T_('Search'); ?></span><?php echo UI::get_icon('all', T_('Expand/Collapse'), 'search', 'header-img'); ?></h4>
+        <ul class="sb3" id="sb_home_search">
+          <li id="sb_home_search_song"><a href="<?php echo $web_path; ?>/search.php?type=song"><?php echo T_('Songs'); ?></a></li>
+          <li id="sb_home_search_album"><a href="<?php echo $web_path; ?>/search.php?type=album"><?php echo T_('Albums'); ?></a></li>
+          <li id="sb_home_search_artist"><a href="<?php echo $web_path; ?>/search.php?type=artist"><?php echo T_('Artists'); ?></a></li>
+          <li id="sb_home_search_playlist"><a href="<?php echo $web_path; ?>/search.php?type=playlist"><?php echo T_('Playlists'); ?></a></li>
+          <?php if (AmpConfig::get('allow_video') && Video::get_item_count('Video')) {
+        ?>
+            <li id="sb_home_search_video"><a href="<?php echo $web_path ?>/search.php?type=video"><?php echo T_('Videos') ?></a></li>
+          <?php
+    } ?>
+        </ul>
+    </li>
+          <?php
+        } ?>
+        </ul>
+    </li>
+        <li>
     <?php
     if (AmpConfig::get('browse_filter')) {
         Ajax::start_container('browse_filters');
@@ -109,11 +145,8 @@
         <?php if (AmpConfig::get('home_now_playing') || AmpConfig::get('allow_democratic_playback') || Access::check('interface', '50')) {
             ?>
         <ul class="sb3" id="sb_home_playlist">
-            <?php if (AmpConfig::get('home_now_playing')) {
-                ?>
-            <li id="sb_home_playlist_currentlyPlaying"><a href="<?php echo AmpConfig::get('web_path') ?>/index.php"><?php echo T_('Currently Playing') ?></a></li>
-            <?php
-            } ?>
+            <li id="sb_home_browse_music_playlist"><a href="<?php echo $web_path; ?>/browse.php?action=playlist"><?php echo $t_playlists; ?></a></li>
+            <li id="sb_home_browse_music_smartPlaylist"><a href="<?php echo $web_path; ?>/browse.php?action=smartplaylist"><?php echo T_('Smart Playlists'); ?></a></li>
             <?php if (AmpConfig::get('allow_democratic_playback')) {
                 ?>
             <li id="sb_home_playlist_playlist"><a href="<?php echo $web_path ?>/democratic.php?action=show_playlist"><?php echo T_('Democratic') ?></a></li>
@@ -127,11 +160,6 @@
                 $current_instance      = $localplay->current_instance();
                 $class                 = $current_instance ? '' : ' class="active_instance"'; ?>
             <li id="sb_home_playlist_show"><a href="<?php echo $web_path ?>/localplay.php?action=show_playlist"><?php echo T_('Localplay') ?></a></li>
-            <?php
-            } ?>
-            <?php if (Access::check('interface', '50')) {
-                ?>
-            <li id="sb_home_playlist_playlist"><a href="<?php echo $web_path ?>/playlist.php?action=show_import_playlist"><?php echo T_('Import') ?></a></li>
             <?php
             } ?>
         </ul>
@@ -160,12 +188,13 @@
         } ?>
                 <?php if (AmpConfig::get('wanted')) {
             ?>
-                <li id="sb_home_info_wanted"><a href="<?php echo $web_path ?>/stats.php?action=wanted"><?php echo T_('Wanted List') ?></a></li>
+                <li id="sb_home_info_wanted"><a href="<?php echo $web_path ?>/stats.php?action=wanted"><?php echo T_('Wanted') ?></a></li>
                 <?php
         } ?>
+        <li id="sb_home_browse_music_tags"><a href="<?php echo $web_path; ?>/browse.php?action=tag"><?php echo $t_tagcloud; ?></a></li>
                 <?php if (AmpConfig::get('share')) {
             ?>
-                <li id="sb_home_info_share"><a href="<?php echo $web_path ?>/stats.php?action=share"><?php echo T_('Shared Objects') ?></a></li>
+                <li id="sb_home_info_share"><a href="<?php echo $web_path ?>/stats.php?action=share"><?php echo T_('Shares') ?></a></li>
                 <?php
         } ?>
                 <?php if (AmpConfig::get('allow_upload')) {
@@ -179,30 +208,6 @@
                 <?php
         } ?>
             <?php
-    } ?>
-        </ul>
-    </li>
-    <li class="<?php if (!(filter_has_var(INPUT_COOKIE, 'sb_random'))) { echo 'collapsed'; } else { echo $_COOKIE['sb_random']; } ?>"">
-        <h4 class="header"><span class="sidebar-header-title" title="<?php echo T_('Random'); ?>"><?php echo T_('Random'); ?></span><?php echo UI::get_icon('all', T_('Expand/Collapse'), 'random', 'header-img'); ?></h4>
-        <ul class="sb3" id="sb_home_random">
-            <li id="sb_home_random_album"><?php echo Ajax::text('?page=random&action=song', T_('Song'), 'home_random_song'); ?></li>
-            <li id="sb_home_random_album"><?php echo Ajax::text('?page=random&action=album', T_('Album'), 'home_random_album'); ?></li>
-            <li id="sb_home_random_artist"><?php echo Ajax::text('?page=random&action=artist', T_('Artist'), 'home_random_artist'); ?></li>
-            <li id="sb_home_random_playlist"><?php echo Ajax::text('?page=random&action=playlist', T_('Playlist'), 'home_random_playlist'); ?></li>
-            <li id="sb_home_random_advanced"><a href="<?php echo $web_path; ?>/random.php?action=advanced&type=song"><?php echo T_('Advanced'); ?></a></li>
-        </ul>
-    </li>
-    <li class="<?php if (!(filter_has_var(INPUT_COOKIE, 'sb_search'))) { echo 'collapsed'; } else { echo $_COOKIE['sb_search']; } ?>"">
-        <h4 class="header"><span class="sidebar-header-title" title="<?php echo T_('Search'); ?>"><?php echo T_('Search'); ?></span><?php echo UI::get_icon('all', T_('Expand/Collapse'), 'search', 'header-img'); ?></h4>
-        <ul class="sb3" id="sb_home_search">
-          <li id="sb_home_search_song"><a href="<?php echo $web_path; ?>/search.php?type=song"><?php echo T_('Songs'); ?></a></li>
-          <li id="sb_home_search_album"><a href="<?php echo $web_path; ?>/search.php?type=album"><?php echo T_('Albums'); ?></a></li>
-          <li id="sb_home_search_artist"><a href="<?php echo $web_path; ?>/search.php?type=artist"><?php echo T_('Artists'); ?></a></li>
-          <li id="sb_home_search_playlist"><a href="<?php echo $web_path; ?>/search.php?type=playlist"><?php echo T_('Playlists'); ?></a></li>
-          <?php if (AmpConfig::get('allow_video') && Video::get_item_count('Video')) {
-        ?>
-            <li id="sb_home_search_video"><a href="<?php echo $web_path ?>/search.php?type=video"><?php echo T_('Videos') ?></a></li>
-          <?php
     } ?>
         </ul>
     </li>

@@ -209,15 +209,16 @@ abstract class Catalog extends database_object
 
     /**
      * Create a catalog from its id.
-     * @param integer $id
+     * @param integer $catalog_id
      * @return Catalog|null
      */
-    public static function create_from_id($id)
+    public static function create_from_id($catalog_id)
     {
         $sql        = 'SELECT `catalog_type` FROM `catalog` WHERE `id` = ?';
-        $db_results = Dba::read($sql, array($id));
-        if ($results = Dba::fetch_assoc($db_results)) {
-            return self::create_catalog_type($results['catalog_type'], $id);
+        $db_results = Dba::read($sql, array($catalog_id));
+        $results    = Dba::fetch_assoc($db_results);
+        if (!empty($results)) {
+            return self::create_catalog_type($results['catalog_type'], $catalog_id);
         }
 
         return null;
@@ -415,17 +416,17 @@ abstract class Catalog extends database_object
 
     /**
      * Get catalog info from table.
-     * @param integer $id
+     * @param integer $catalog_id
      * @param string $table
      * @return array
      */
-    public function get_info($id, $table = 'catalog')
+    public function get_info($catalog_id, $table = 'catalog')
     {
-        $info = parent::get_info($id, $table);
+        $info = parent::get_info($catalog_id, $table);
 
         $table      = 'catalog_' . $this->get_type();
         $sql        = "SELECT `id` FROM $table WHERE `catalog_id` = ?";
-        $db_results = Dba::read($sql, array($id));
+        $db_results = Dba::read($sql, array($catalog_id));
 
         if ($results = Dba::fetch_assoc($db_results)) {
             $info_type = parent::get_info($results['id'], $table);
@@ -494,7 +495,7 @@ abstract class Catalog extends database_object
     /**
      * update_enabled
      * sets the enabled flag
-     * @param boolean $new_enabled
+     * @param string $new_enabled
      * @param integer $catalog_id
      */
     public static function update_enabled($new_enabled, $catalog_id)
@@ -585,7 +586,7 @@ abstract class Catalog extends database_object
     /**
      * Get last catalogs update.
      * @param int[]|null $catalogs
-     * @return int
+     * @return integer
      */
     public static function getLastUpdate($catalogs = null)
     {
@@ -646,7 +647,7 @@ abstract class Catalog extends database_object
      *
      * This creates a new catalog entry and associate it to current instance
      * @param array $data
-     * @return int
+     * @return integer
      */
     public static function create($data)
     {
@@ -700,7 +701,7 @@ abstract class Catalog extends database_object
      * count_tags
      *
      * This returns the current number of unique tags in the database.
-     * @return int
+     * @return integer
      */
     public static function count_tags()
     {
@@ -893,7 +894,7 @@ abstract class Catalog extends database_object
      *
      * @param integer|null $catalog_id
      * @param string $type
-     * @return int
+     * @return integer
      */
     public static function get_videos_count($catalog_id = null, $type = '')
     {
@@ -1317,7 +1318,7 @@ abstract class Catalog extends database_object
     {
         // Make sure they've actually got methods
         $art_order    = AmpConfig::get('art_order');
-        $db_art_first = $art_order[0] == 'db';
+        $db_art_first = ($art_order[0] == 'db');
         if (!count($art_order)) {
             debug_event('catalog.class', 'art_order not set, self::gather_art aborting', 3);
 
@@ -1504,7 +1505,7 @@ abstract class Catalog extends database_object
                 } else {
                     debug_event('catalog.class', "Unable to open $file for writing", 3);
                     /* HINT: filename (file path) */
-                    printf(T_("Error: Unable to write to art file [%s]"), $file);
+                    printf(T_("Couldn't get write to create art file: %s"), $file);
                     echo "\n";
                 }
             }
@@ -1632,6 +1633,11 @@ abstract class Catalog extends database_object
         debug_event('catalog.class', 'Reading tags from ' . $media->file, 4);
 
         $catalog = self::create_from_id($media->catalog);
+        if ($catalog === null) {
+            debug_event('catalog.class', 'update_media_from_tags: Error loading catalog ' . $media->catalog, 2);
+
+            return array();
+        }
         $results = $catalog->get_media_tags($media, $gather_types, $sort_pattern, $rename_pattern);
 
         // Figure out what type of object this is and call the right
@@ -1645,7 +1651,7 @@ abstract class Catalog extends database_object
         // Cleanup old objects that are no longer needed
         Album::garbage_collection();
         Artist::garbage_collection();
-        
+
         return $return;
     } // update_media_from_tags
 
@@ -1964,7 +1970,7 @@ abstract class Catalog extends database_object
         if (!defined('SSE_OUTPUT')) {
             UI::show_box_top();
         }
-        UI::update_text('', sprintf(\nT_('Catalog Clean Done. %d file removed.', 'Catalog Clean Done. %d files removed.', $dead_total), $dead_total));
+        UI::update_text(T_("Catalog Cleaned"), sprintf(nT_('%d file removed.', '%d files removed.', $dead_total), $dead_total));
         if (!defined('SSE_OUTPUT')) {
             UI::show_box_bottom();
         }
@@ -1989,7 +1995,7 @@ abstract class Catalog extends database_object
         if (!defined('SSE_OUTPUT')) {
             UI::show_box_top();
         }
-        UI::update_text('', sprintf(T_('Catalog Verify done. %d of %d files updated.'), $verified['updated'], $verified['total']));
+        UI::update_text(T_("Catalog Verified"), sprintf(nT_('%d file updated.', '%d files updated.', $verified['updated']), $verified['updated']));
         if (!defined('SSE_OUTPUT')) {
             UI::show_box_bottom();
         }
@@ -2214,7 +2220,7 @@ abstract class Catalog extends database_object
             if (!$playlist_id) {
                 return array(
                     'success' => false,
-                    'error' => T_('Failed to create playlist.'),
+                    'error' => T_('Failed to create playlist'),
                 );
             }
 
@@ -2235,7 +2241,7 @@ abstract class Catalog extends database_object
 
         return array(
             'success' => false,
-            'error' => T_('No valid songs found in playlist file.')
+            'error' => T_('No valid songs found in playlist file')
         );
     }
 
@@ -2637,6 +2643,22 @@ abstract class Catalog extends database_object
                 debug_event('catalog.class', 'migrate ' . $object_type .
                         ' from ' . $old_object_id . ' to ' . $new_object_id . ' USERACTIVITY migration failed!', 2);
             }
+            if (!Recommendation::migrate($object_type, $old_object_id, $new_object_id)) {
+                debug_event('catalog.class', 'migrate ' . $object_type .
+                        ' from ' . $old_object_id . ' to ' . $new_object_id . ' RECOMMENDATION migration failed!', 2);
+            }
+            if (!Share::migrate($object_type, $old_object_id, $new_object_id)) {
+                debug_event('catalog.class', 'migrate ' . $object_type .
+                        ' from ' . $old_object_id . ' to ' . $new_object_id . ' SHARE migration failed!', 2);
+            }
+            if (!Shoutbox::migrate($object_type, $old_object_id, $new_object_id)) {
+                debug_event('catalog.class', 'migrate ' . $object_type .
+                        ' from ' . $old_object_id . ' to ' . $new_object_id . ' SHOUTBOX migration failed!', 2);
+            }
+            if (!Tag::migrate($object_type, $old_object_id, $new_object_id)) {
+                debug_event('catalog.class', 'migrate ' . $object_type .
+                        ' from ' . $old_object_id . ' to ' . $new_object_id . ' TAG_MAP migration failed!', 2);
+            }
             if (!Userflag::migrate($object_type, $old_object_id, $new_object_id)) {
                 debug_event('catalog.class', 'migrate ' . $object_type .
                         ' from ' . $old_object_id . ' to ' . $new_object_id . ' USERFLAG migration failed!', 2);
@@ -2655,4 +2677,4 @@ abstract class Catalog extends database_object
 
         return false;
     }
-}// end of catalog class
+} // end of catalog class

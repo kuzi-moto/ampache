@@ -41,6 +41,8 @@ class AmpachePiwik
      */
     public function __construct()
     {
+        $this->description = T_('Piwik statistics');
+
         return true;
     }
 
@@ -56,8 +58,8 @@ class AmpachePiwik
             return false;
         }
 
-        Preference::insert('piwik_site_id', 'Piwik Site ID', '1', 100, 'string', 'plugins', 'piwik');
-        Preference::insert('piwik_url', 'Piwik URL', AmpConfig::get('web_path') . '/piwik/', 100, 'string', 'plugins', $this->name);
+        Preference::insert('piwik_site_id', T_('Piwik Site ID'), '1', 100, 'string', 'plugins', 'piwik');
+        Preference::insert('piwik_url', T_('Piwik URL'), AmpConfig::get('web_path') . '/piwik/', 100, 'string', 'plugins', $this->name);
 
         return true;
     }
@@ -117,11 +119,18 @@ class AmpachePiwik
      * load
      * This loads up the data we need into this object, this stuff comes
      * from the preferences.
+     * @param User $user
      */
     public function load($user)
     {
         $user->set_preferences();
         $data = $user->prefs;
+        // load system when nothing is given
+        if (!strlen(trim($data['piwik_site_id'])) || !strlen(trim($data['piwik_url']))) {
+            $data                  = array();
+            $data['piwik_site_id'] = Preference::get_by_user(-1, 'piwik_site_id');
+            $data['piwik_url']     = Preference::get_by_user(-1, 'piwik_url');
+        }
 
         $this->site_id = trim($data['piwik_site_id']);
         if (!strlen($this->site_id)) {

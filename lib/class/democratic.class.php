@@ -148,26 +148,9 @@ class Democratic extends Tmp_Playlist
      */
     public function format()
     {
-        $this->f_cooldown    = $this->cooldown . ' ' . T_('minutes');
-        $this->f_primary     = $this->primary ? T_('Primary') : '';
-
-        switch ($this->level) {
-            case '5':
-                $this->f_level = T_('Guest');
-            break;
-            case '25':
-                $this->f_level = T_('User');
-            break;
-            case '50':
-                $this->f_level = T_('Content Manager');
-            break;
-            case '75':
-                $this->f_level = T_('Catalog Manager');
-            break;
-            case '100':
-                $this->f_level = T_('Admin');
-            break;
-        }
+        $this->f_cooldown = $this->cooldown . ' ' . T_('minutes');
+        $this->f_primary  = $this->primary ? T_('Primary') : '';
+        $this->f_level    = User::access_level_to_name($this->level);
     } // format
 
     /**
@@ -221,7 +204,7 @@ class Democratic extends Tmp_Playlist
      * Sorting is highest to lowest vote count, then by oldest to newest
      * vote activity.
      * @param integer $limit
-     * @return array
+     * @return integer[]
      */
     public function get_items($limit = null)
     {
@@ -614,6 +597,7 @@ class Democratic extends Tmp_Playlist
     /**
      * get_vote
      * This returns the current count for a specific song
+     * @param integer $id
      */
     public function get_vote($id)
     {

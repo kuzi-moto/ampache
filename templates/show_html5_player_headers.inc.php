@@ -218,7 +218,7 @@ function ShowVisualizer()
             $('.jp-interface').css('background-color', '#000');
             $('.jp-playlist').css('background-color', '#000');
         } else {
-            alert("<?php echo T_('Your browser doesn\'t support this feature.'); ?>");
+            alert("<?php echo T_("Your browser doesn't support this feature."); ?>");
         }
     }
 }
@@ -237,7 +237,7 @@ function ShowVisualizerFullScreen()
     } else if (element.mozRequestFullScreen) {
         element.mozRequestFullScreen();
     } else {
-        alert('Full-Screen not supported by your browser.');
+        alert('Full-Screen not supported by your browser');
     }
 }
 
@@ -486,7 +486,7 @@ function receiveBroadcastMessage(e)
                 break;
 
                 default:
-                    alert('Unknown message code.');
+                    alert('Unknown message code');
                 break;
             }
         }
@@ -515,7 +515,7 @@ function stopBroadcast()
 window.parent.onbeforeunload = function (evt) {
     if ($("#jquery_jplayer_1") !== undefined && $("#jquery_jplayer_1").data("jPlayer") !== undefined && !$("#jquery_jplayer_1").data("jPlayer").status.paused &&
             (document.activeElement === undefined || (document.activeElement.href.indexOf('/batch.php') < 0 && document.activeElement.href.indexOf('/stream.php') < 0))) {
-        var message = '<?php echo T_('Media is currently playing. Are you sure you want to close') . ' ' . AmpConfig::get('site_title') . '?'; ?>';
+        var message = '<?php echo T_('Media is currently playing, are you sure you want to close?') . ' ' . AmpConfig::get('site_title') . '?'; ?>';
         if (typeof evt == 'undefined') {
             evt = window.event;
         }

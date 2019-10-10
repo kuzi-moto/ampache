@@ -126,14 +126,14 @@ switch ($_REQUEST['action']) {
             $new_pass = Core::get_post('db_password');
 
             if (!strlen($new_user) || !strlen($new_pass)) {
-                AmpError::add('general', T_('Error: Ampache SQL Username or Password missing'));
+                AmpError::add('general', T_('The Ampache database username or password is missing'));
                 require_once 'templates/show_install.inc.php';
                 break;
             }
         }
 
         if (!$skip_admin) {
-            if (!install_insert_db($new_user, $new_pass, $_REQUEST['create_db'], $_REQUEST['overwrite_db'], $_REQUEST['create_tables'])) {
+            if (!install_insert_db($new_user, $new_pass, $_REQUEST['create_db'], $_REQUEST['overwrite_db'], $_REQUEST['create_tables'], $_REQUEST['mysql8'])) {
                 require_once 'templates/show_install.inc.php';
                 break;
             }
@@ -180,7 +180,7 @@ switch ($_REQUEST['action']) {
 
         /* Make sure we've got a valid config file */
         if (!check_config_values($results) || !$created_config) {
-            AmpError::add('general', T_('Error: Config files not found or unreadable'));
+            AmpError::add('general', T_('Configuration files were either not found or unreadable'));
             require_once AmpConfig::get('prefix') . UI::find_template('show_install_config.inc.php');
             break;
         }

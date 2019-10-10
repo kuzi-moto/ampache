@@ -41,6 +41,8 @@ class AmpacheMatomo
      */
     public function __construct()
     {
+        $this->description = T_('Matomo statistics');
+
         return true;
     }
 
@@ -56,8 +58,8 @@ class AmpacheMatomo
             return false;
         }
 
-        Preference::insert('matomo_site_id', 'Matomo Site ID', '1', 100, 'string', 'plugins', 'matomo');
-        Preference::insert('matomo_url', 'Matomo URL', AmpConfig::get('web_path') . '/matomo/', 100, 'string', 'plugins', $this->name);
+        Preference::insert('matomo_site_id', T_('Matomo Site ID'), '1', 100, 'string', 'plugins', 'matomo');
+        Preference::insert('matomo_url', T_('Matomo URL'), AmpConfig::get('web_path') . '/matomo/', 100, 'string', 'plugins', $this->name);
 
         return true;
     }
@@ -117,11 +119,18 @@ class AmpacheMatomo
      * load
      * This loads up the data we need into this object, this stuff comes
      * from the preferences.
+     * @param User $user
      */
     public function load($user)
     {
         $user->set_preferences();
         $data = $user->prefs;
+        // load system when nothing is given
+        if (!strlen(trim($data['matomo_site_id'])) || !strlen(trim($data['matomo_url']))) {
+            $data                   = array();
+            $data['matomo_site_id'] = Preference::get_by_user(-1, 'matomo_site_id');
+            $data['matomo_url']     = Preference::get_by_user(-1, 'matomo_url');
+        }
 
         $this->site_id = trim($data['matomo_site_id']);
         if (!strlen($this->site_id)) {

@@ -24,7 +24,7 @@
 <form name="podcast" method="post" action="<?php echo AmpConfig::get('web_path'); ?>/podcast.php?action=create">
 <table class="tabledata" cellspacing="0" cellpadding="0">
 <tr>
-    <td><?php echo T_('Podcast feed url'); ?></td>
+    <td><?php echo T_('Podcast Feed URL'); ?></td>
     <td>
         <input type="text" name="feed" value="<?php echo scrub_out($_REQUEST['feed']) ?: 'http://'; ?>" />
         <?php AmpError::display('feed'); ?>
@@ -33,7 +33,7 @@
 <tr>
     <td><?php echo T_('Catalog'); ?></td>
     <td>
-        <?php show_catalog_select('catalog', scrub_out($_REQUEST['catalog']), '', false, 'podcast'); ?>
+        <?php show_catalog_select('catalog', (int) scrub_out($_REQUEST['catalog']), '', false, 'podcast'); ?>
         <?php AmpError::display('catalog'); ?>
     </td>
 </tr>

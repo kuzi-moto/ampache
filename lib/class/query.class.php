@@ -97,7 +97,7 @@ class Query
             }
         }
 
-        AmpError::add('browse', T_('Browse not found or expired, try reloading the page'));
+        AmpError::add('browse', T_('Browse was not found or expired, try reloading the page'));
 
         return false;
     }
@@ -625,7 +625,7 @@ class Query
     /**
      * get_start
      * This returns the current value of the start
-     * @return int
+     * @return integer
      */
     public function get_start()
     {
@@ -635,7 +635,7 @@ class Query
     /**
      * get_offset
      * This returns the current offset
-     * @return int
+     * @return integer
      */
     public function get_offset()
     {
@@ -658,7 +658,7 @@ class Query
      * If it's already cached used it. if they pass us an array then use
      * that.
      * @param array $objects
-     * @return int
+     * @return integer
      */
     public function get_total($objects = null)
     {

@@ -41,6 +41,7 @@ class UI
      * Return the path to the template file wanted. The file can be overwriten
      * by the theme if it's not a php file, or if it is and if option
      * allow_php_themes is set to true.
+     * @return string
      */
     public static function find_template($template)
     {
@@ -58,6 +59,7 @@ class UI
      * access_denied
      *
      * Throw an error when they try to do something naughty.
+     * @return false
      */
     public static function access_denied($error = 'Access Denied')
     {
@@ -74,6 +76,7 @@ class UI
      *
      * Does some trickery with the output buffer to return the output of a
      * template.
+     * @return string
      */
     public static function ajax_include($template)
     {
@@ -89,6 +92,7 @@ class UI
      * check_iconv
      *
      * Checks to see whether iconv is available;
+     * @return boolean
      */
     public static function check_iconv()
     {
@@ -104,6 +108,7 @@ class UI
      *
      * Stupid little cutesie thing to ratelimit output of long-running
      * operations.
+     * @return boolean
      */
     public static function check_ticker()
     {
@@ -122,6 +127,7 @@ class UI
      * Removes characters that aren't valid in XML (which is a subset of valid
      * UTF-8, but close enough for our purposes.)
      * See http://www.w3.org/TR/2006/REC-xml-20060816/#charsets
+     * @return string
      */
     public static function clean_utf8($string)
     {
@@ -144,7 +150,7 @@ class UI
               $clean = preg_replace($regex, '$1', $string); */
 
             if ($clean) {
-                return $clean;
+                return rtrim($clean);
             }
 
             debug_event('ui.class', 'Charset cleanup failed, something might break', 1);
@@ -172,6 +178,7 @@ class UI
      * format_bytes
      *
      * Turns a size in bytes into the best human-readable value
+     * @return string
      */
     public static function format_bytes($value, $precision = 2)
     {
@@ -202,7 +209,7 @@ class UI
                 break;
         }
 
-        return round($value, $precision) . ' ' . $unit;
+        return ((string) round($value, $precision)) . ' ' . $unit;
     }
 
     /**
@@ -249,6 +256,7 @@ class UI
      * @param string $title
      * @param string $id_attrib
      * @param string $class_attrib
+     * @return string
      */
     public static function get_icon($name, $title = null, $id_attrib = null, $class_attrib = null)
     {
@@ -342,6 +350,7 @@ class UI
      * @param string $title
      * @param string $id_attrib
      * @param string $class_attrib
+     * @return string
      */
     public static function get_image($name, $title = null, $id_attrib = null, $class_attrib = null)
     {
@@ -495,6 +504,16 @@ class UI
         require AmpConfig::get('prefix') . self::find_template('show_box_bottom.inc.php');
     }
 
+    /**
+     * show_query_stats
+     *
+     * This shows the bottom of the box
+     */
+    public static function show_query_stats()
+    {
+        require AmpConfig::get('prefix') . self::find_template('show_query_stats.inc.php');
+    }
+
     public static function show_custom_style()
     {
         if (AmpConfig::get('custom_login_logo')) {
@@ -543,6 +562,7 @@ class UI
      *
      * Get the custom logo or logo relating to your theme color
      * @param string $color
+     * @return string
      */
     public static function get_logo_url($color = null)
     {

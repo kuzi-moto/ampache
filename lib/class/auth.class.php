@@ -178,6 +178,18 @@ class Auth
                     );
                 }
             }
+            // subsonic password fallback for auth with apikey
+            $sub_sql = 'SELECT `apikey` FROM `user` WHERE `username` = ?';
+            $results = Dba::read($sub_sql, array($username));
+            $row     = Dba::fetch_assoc($results);
+            $api_key = $row['apikey'];
+            if ($password == $api_key) {
+                return array(
+                    'success' => true,
+                    'type' => 'mysql',
+                    'username' => $username
+                );
+            }
         }
 
         return array(
@@ -481,7 +493,7 @@ class Auth
      * @param string $salt
      * @return array
      */
-    private static function token_check($username, $token, $salt)
+    public static function token_check($username, $token, $salt)
     {
         // subsonic token auth with apikey
         if (strlen($token) && strlen($salt) && strlen($username)) {
@@ -492,7 +504,7 @@ class Auth
             if ($token == $hash_token) {
                 return array(
                     'success' => true,
-                    'type' => 'token',
+                    'type' => 'api',
                     'username' => $username
                 );
             }
@@ -500,4 +512,4 @@ class Auth
 
         return array();
     }
-}//end of auth class
+} // end of auth class

@@ -24,7 +24,7 @@ class AmpacheLibravatar
 {
     public $name        = 'Libravatar';
     public $categories  = 'avatar';
-    public $description = 'Users avatars with Libravatar';
+    public $description = 'Users avatar\'s with Libravatar';
     public $url         = 'https://www.libravatar.org';
     public $version     = '000001';
     public $min_ampache = '360040';
@@ -36,6 +36,8 @@ class AmpacheLibravatar
      */
     public function __construct()
     {
+        $this->description = T_("Users avatar's with Libravatar");
+
         return true;
     } // constructor
 
@@ -91,6 +93,7 @@ class AmpacheLibravatar
      * load
      * This loads up the data we need into this object, this stuff comes
      * from the preferences.
+     * @param User $user
      */
     public function load($user)
     {

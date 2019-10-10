@@ -161,7 +161,7 @@ input[type=button]:focus:active, input[type=submit]:focus:active {
 }
 
 div#autoupdate > span {
-	color: FF0000;
+	color: #FF0000;
 }
 
 
@@ -173,16 +173,6 @@ div#autoupdate > span {
     position: relative;
     z-index: 1;
     padding-bottom: 40px;
-}
-
-#footer {
-    width: auto;
-    z-index: 5;
-    margin: 15px 250px 0px 0px;
-}
-
-.footer-wild {
-    margin-right: 20px !important;
 }
 
 #ajax-loading {
@@ -242,6 +232,8 @@ div#autoupdate > span {
 
 #mobileheader {
     height: 64px;
+    padding-bottom: 64px;
+    padding-top: 24px;
 }
 
 #header #headerbox {
@@ -1588,7 +1580,16 @@ dl.media_details dd {
         Footer
 ***********************************************/
 #footer {
+    bottom: 0;
+    margin: 15px 250px 0px 0px;
+    right: 0;
     text-align: right;
+    width: auto;
+    z-index: 5;
+}
+
+.footer-wild {
+    margin-right: 20px !important;
 }
 
 #footer a:hover {
@@ -1666,6 +1667,11 @@ span.item-count {
     font-size: 11px;
 }
 
+span.query-count {
+    font-size: 11px;
+    float: inline-end;
+}
+
 a.option-list {
     border: solid 1px transparent;
     width: 100%;
@@ -1695,7 +1701,6 @@ a.option-list:hover {
     text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.5);
     text-decoration: none;
     min-width: 100px;
-    background-color: #363F4A;
 }
 
 .formValidation {

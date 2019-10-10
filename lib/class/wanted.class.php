@@ -233,6 +233,10 @@ class Wanted extends database_object
         return $wartist;
     }
 
+    /**
+     * search_missing_artists
+     * @return array
+     */
     public static function search_missing_artists($name)
     {
         $args = array(
@@ -254,7 +258,7 @@ class Wanted extends database_object
 
     /**
      * Get accepted wanted release count.
-     * @return int
+     * @return integer
      */
     public static function get_accepted_wanted_count()
     {
@@ -270,7 +274,7 @@ class Wanted extends database_object
     /**
      * Get wanted release by mbid.
      * @param string $mbid
-     * @return int
+     * @return integer
      */
     public static function get_wanted($mbid)
     {
@@ -356,7 +360,7 @@ class Wanted extends database_object
      * Check if a release mbid is already marked as wanted
      * @param string $mbid
      * @param integer $userid
-     * @return boolean
+     * @return boolean|integer
      */
     public static function has_wanted($mbid, $userid = 0)
     {
@@ -442,7 +446,7 @@ class Wanted extends database_object
                     foreach ($release->media as $media) {
                         foreach ($media->tracks as $track) {
                             $song          = array();
-                            $song['disk']  = $media->position;
+                            $song['disk']  = Album::sanitize_disk($media->position);
                             $song['track'] = $track->number;
                             $song['title'] = $track->title;
                             $song['mbid']  = $track->id;
@@ -540,4 +544,4 @@ class Wanted extends database_object
 
         return $results;
     }
-} // end of recommendation class
+} // end of wanted class
