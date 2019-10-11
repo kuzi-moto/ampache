@@ -39,6 +39,7 @@ $t_favorites = T_('Favorites');
 $t_upload    = T_('Upload');
 $t_logout    = T_('Log out');
 ?>
+<!-- REMOVEME: Start of header.inc.php -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $htmllang; ?>" lang="<?php echo $htmllang; ?>" dir="<?php echo is_rtl(AmpConfig::get('lang')) ? 'rtl' : 'ltr';?>">
     <head>
@@ -60,9 +61,8 @@ $t_logout    = T_('Log out');
             }
         ?>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=<?php echo AmpConfig::get('site_charset'); ?>" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title><?php echo AmpConfig::get('site_title'); ?> - <?php echo $location['title']; ?></title>
-
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><?php echo AmpConfig::get('site_title') . ' - ' . $location['title']; ?></title>
 
         <link rel="stylesheet" href="<?php echo $web_path . UI::find_template('jquery-editdialog.css'); ?>" type="text/css" media="screen" />
         <link rel="stylesheet" href="<?php echo $web_path; ?>/modules/jquery-ui-ampache/jquery-ui.min.css" type="text/css" media="screen" />
@@ -539,7 +539,7 @@ $t_logout    = T_('Log out');
 
                 <?php
                     if (Access::check('interface', '100')) {
-                        echo '<div id=update_notify>';
+                        echo '<div id="update_notify">';
                         if (AmpConfig::get('autoupdate') && AutoUpdate::is_update_available()) {
                             AutoUpdate::show_new_version();
                         }
@@ -562,3 +562,4 @@ $t_logout    = T_('Log out');
                 } //load the web_player early to make sure the browser doesn't block audio playback
                 ?>
                 <div id="guts">
+<!-- REMOVEME: End of header.inc.php -->

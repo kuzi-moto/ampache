@@ -30,6 +30,7 @@ if ($user) {
     }
 }
 ?>
+<!-- REMOVEME: Start of show_index.inc.php -->
 <?php if (AmpConfig::get('home_now_playing')) {
     ?>
 <div id="now_playing">
@@ -71,3 +72,4 @@ if (Art::is_enabled()) {
 </div>
 <?php
     } ?>
+<!-- REMOVEME: End of show_index.inc.php -->

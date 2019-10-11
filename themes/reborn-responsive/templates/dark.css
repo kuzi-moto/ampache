@@ -23,16 +23,20 @@
            General style rules
 ***********************************************/
 
-body {
+body,
+div#autoupdate {
   background-color: rgb(73, 72, 72);
 }
 
 .box_recently_played tr,
 div.random_album,
-#ajax-loading,
-div#autoupdate {
+#ajax-loading {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     background-color: dimgray;
+}
+
+#main-page #header {
+    box-shadow: 0 0 8px 0 rgba(0,0,0,0.2);
 }
 
 a {

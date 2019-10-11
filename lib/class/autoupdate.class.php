@@ -262,7 +262,7 @@ class AutoUpdate
     {
         echo '<div id="autoupdate">';
         echo '<span>' . T_('Update available') . '</span>';
-        echo ' (' . self::get_latest_version() . ').';
+        echo ' (' . self::get_latest_version() . ').<p>';
         echo '<a href="https://github.com/ampache/ampache/' . (self::is_develop() ? 'compare/' . self::get_current_version() . '...' . self::get_latest_version() : 'blob/master/docs/CHANGELOG.md') . '" target="_blank">' . T_('View changes') . '</a> ';
         if (self::is_develop()) {
             echo ' | <a href="https://github.com/ampache/ampache/archive/' .

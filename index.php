@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
+echo "<!-- REMOVEME: Start of index.php -->\r\n";
 require_once 'lib/init.php';
 
 UI::show_header();
@@ -48,3 +48,5 @@ require_once AmpConfig::get('prefix') . UI::find_template('show_index.inc.php');
 /* Show the Footer */
 UI::show_query_stats();
 UI::show_footer();
+
+echo '<!-- REMOVEME: End of index.php -->';

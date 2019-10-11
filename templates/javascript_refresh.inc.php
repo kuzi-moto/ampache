@@ -22,6 +22,7 @@
 
 ?>
 
+<!-- REMOVEME: Start of javascript_refresh.inc.php -->
 <script type="text/javascript" language="javascript">
 // Set refresh interval (in seconds)
 var refreshInterval=<?php echo $refresh_limit ?>;
@@ -36,3 +37,4 @@ $(document).ready(function() {
     }, refreshInterval * 1000);
 });
 </script>
+<!-- REMOVEME: End of javascript_refresh.inc.php -->

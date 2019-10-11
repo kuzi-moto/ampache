@@ -21,6 +21,7 @@
  */
 
 ?>
+<!-- REMOVEME: Start of footer.inc.php -->
                 </div>
                 <div style="clear:both;">
                 </div>
@@ -61,3 +62,4 @@
         ?>
     </body>
 </html>
+<!-- REMOVEME: End of footer.inc.php -->

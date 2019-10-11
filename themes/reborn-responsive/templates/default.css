@@ -72,7 +72,7 @@ div#maincontainer {
     flex-direction: column;
 }
 
-div#content, div#loginbox {
+div#guts, div#loginbox {
     margin: .5em;
 }
 
@@ -87,6 +87,7 @@ div#ajax-loading {
 ---------------------------------- */
 
 div#header {
+    padding: .5em;
     display: flex;
 }
 
@@ -123,6 +124,7 @@ div#header.header-float #headerlogo {
 ---------------------------------- */
 
 div#footer {
+    padding: .5em;
     text-align: center;
 }
 
@@ -232,9 +234,13 @@ div#header.header-float {
 
 }
 
-div#autoupdate {
+div#update_notify {
+    border-bottom: 1px solid black;
     padding: .5em;
     width: 100%;
+}
+
+div#autoupdate {
     word-break: break-all;
     font-size: .8em;
 }
@@ -251,6 +257,11 @@ div#autoupdate > span {
 
 div#ajax-loading {
 
+}
+
+.query-count {
+    display: block;
+    text-align: center;
 }
 
 
@@ -368,18 +379,18 @@ div.box_random_albums ul {
     list-style-type: none;
 }
 
-div.box_random_albums > div > div {
+div.box_random_albums > div > div.box-content {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-row: 1fr;;
+    grid-template-columns: 2fr;
+    grid-template-rows: 1fr;
     row-gap: 1em;
     column-gap: .5em;
-    justify-items: center;
-    align-content: space-between;
+    /* justify-items: center;
+    align-content: space-between; */
 }
 
 div.random_album {
-    width: 100%;
+    /* width: 100%; */
 }
 
 div.random_album > .art_album > .item_art > a > img {
@@ -435,6 +446,7 @@ li.current-rating {
     padding: 0 .25em;
 }
 
+td.cel_play,
 .activeMediaTable td.cel_play {
     display: none;
     grid-area: play;
@@ -452,6 +464,7 @@ li.current-rating {
     grid-area: artist;
 }
 
+td.cel_year,
 .activeMediaTable td.cel_year {
     display: none;
     grid-area: year;
@@ -465,6 +478,7 @@ li.current-rating {
     grid-area: lastplayed;
 }
 
+td.cel_add,
 .activeMediaTable td.cel_add {
     display: none;
     grid-area: add;

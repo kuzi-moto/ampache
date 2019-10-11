@@ -103,35 +103,30 @@ $t_search    = T_('Search');
         </li>
     <?php
         } ?>
-    <li class="<?php if (!(filter_has_var(INPUT_COOKIE, 'sb_random'))) { echo 'collapsed'; } else { echo $_COOKIE['sb_random']; } ?>"">
+    <li class="<?php if (!(filter_has_var(INPUT_COOKIE, 'sb_random'))) { echo 'collapsed'; } else { echo $_COOKIE['sb_random']; } ?>">
         <h4 class="header"><span class="sidebar-header-title" title="<?php echo T_('Random'); ?>"><?php echo T_('Random'); ?></span><?php echo UI::get_icon('all', T_('Expand/Collapse'), 'random', 'header-img'); ?></h4>
         <ul class="sb3" id="sb_home_random">
-            <li id="sb_home_random_album"><?php echo Ajax::text('?page=random&action=song', T_('Song'), 'home_random_song'); ?></li>
+            <li id="sb_home_random_song"><?php echo Ajax::text('?page=random&action=song', T_('Song'), 'home_random_song'); ?></li>
             <li id="sb_home_random_album"><?php echo Ajax::text('?page=random&action=album', T_('Album'), 'home_random_album'); ?></li>
             <li id="sb_home_random_artist"><?php echo Ajax::text('?page=random&action=artist', T_('Artist'), 'home_random_artist'); ?></li>
             <li id="sb_home_random_playlist"><?php echo Ajax::text('?page=random&action=playlist', T_('Playlist'), 'home_random_playlist'); ?></li>
             <li id="sb_home_random_advanced"><a href="<?php echo $web_path; ?>/random.php?action=advanced&type=song"><?php echo T_('Advanced'); ?></a></li>
         </ul>
     </li>
-    <li class="<?php if (!(filter_has_var(INPUT_COOKIE, 'sb_search'))) { echo 'collapsed'; } else { echo $_COOKIE['sb_search']; } ?>"">
+    <li class="<?php if (!(filter_has_var(INPUT_COOKIE, 'sb_search'))) { echo 'collapsed'; } else { echo $_COOKIE['sb_search']; } ?>">
         <h4 class="header"><span class="sidebar-header-title" title="<?php echo T_('Search'); ?>"><?php echo T_('Search'); ?></span><?php echo UI::get_icon('all', T_('Expand/Collapse'), 'search', 'header-img'); ?></h4>
         <ul class="sb3" id="sb_home_search">
-          <li id="sb_home_search_song"><a href="<?php echo $web_path; ?>/search.php?type=song"><?php echo T_('Songs'); ?></a></li>
-          <li id="sb_home_search_album"><a href="<?php echo $web_path; ?>/search.php?type=album"><?php echo T_('Albums'); ?></a></li>
-          <li id="sb_home_search_artist"><a href="<?php echo $web_path; ?>/search.php?type=artist"><?php echo T_('Artists'); ?></a></li>
-          <li id="sb_home_search_playlist"><a href="<?php echo $web_path; ?>/search.php?type=playlist"><?php echo T_('Playlists'); ?></a></li>
-          <?php if (AmpConfig::get('allow_video') && Video::get_item_count('Video')) {
-        ?>
-            <li id="sb_home_search_video"><a href="<?php echo $web_path ?>/search.php?type=video"><?php echo T_('Videos') ?></a></li>
-          <?php
-    } ?>
+            <li id="sb_home_search_song"><a href="<?php echo $web_path; ?>/search.php?type=song"><?php echo T_('Songs'); ?></a></li>
+            <li id="sb_home_search_album"><a href="<?php echo $web_path; ?>/search.php?type=album"><?php echo T_('Albums'); ?></a></li>
+            <li id="sb_home_search_artist"><a href="<?php echo $web_path; ?>/search.php?type=artist"><?php echo T_('Artists'); ?></a></li>
+            <li id="sb_home_search_playlist"><a href="<?php echo $web_path; ?>/search.php?type=playlist"><?php echo T_('Playlists'); ?></a></li>
+            <?php
+            if (AmpConfig::get('allow_video') && Video::get_item_count('Video')) { ?>
+                <li id="sb_home_search_video"><a href="<?php echo $web_path ?>/search.php?type=video"><?php echo T_('Videos') ?></a></li>
+            <?php
+            } ?>
         </ul>
     </li>
-          <?php
-        } ?>
-        </ul>
-    </li>
-        <li>
     <?php
     if (AmpConfig::get('browse_filter')) {
         Ajax::start_container('browse_filters');

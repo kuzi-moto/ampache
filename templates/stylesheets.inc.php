@@ -32,7 +32,7 @@ foreach ($theme_css_base as $css_base) {
     <link rel="stylesheet" href="<?php echo $web_path . $theme_path . '/' . $css_base[0]; ?>" type="text/css" media="<?php echo $css_base[1]; ?>" />
 <?php
 } ?>
-<link rel="stylesheet" href="<?php // echo $web_path . '/templates/base.css';?>" type="text/css" media="screen" />
+<!-- <link rel="stylesheet" href="<?php echo $web_path . '/templates/base.css';?>" type="text/css" media="screen" /> -->
 <link rel="stylesheet" href="<?php echo $web_path . '/templates/print.css'; ?>" type="text/css" media="print" />
 <?php
 if (is_rtl(AmpConfig::get('lang'))
