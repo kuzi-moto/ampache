@@ -128,11 +128,15 @@ $t_search    = T_('Search');
         </ul>
     </li>
     <?php
-    if (AmpConfig::get('browse_filter')) {
+    if (AmpConfig::get('browse_filter')) { ?>
+    <li>
+        <?php
         Ajax::start_container('browse_filters');
         Ajax::end_container();
-    }
-    ?>
+        ?>
+    </li>
+    <?php
+    } ?>
     <?php if (Access::check('interface', '25')) {
         ?>
     <li class="<?php if (!(filter_has_var(INPUT_COOKIE, 'sb_home_playlist'))) { echo 'collapsed'; } else { echo $_COOKIE['sb_home_playlist']; } ?>">

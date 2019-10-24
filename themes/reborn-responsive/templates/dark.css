@@ -28,9 +28,9 @@ div#autoupdate {
   background-color: rgb(73, 72, 72);
 }
 
-.box_recently_played tr,
+.box_recently_played .box-content,
 div.random_album,
-#ajax-loading {
+.noty_bar {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     background-color: dimgray;
 }
@@ -63,6 +63,10 @@ label, div {
 
 #sidebar .sb1.active > a > svg {
   fill: orange;
+}
+
+#ajax-loading {
+  background-color: #222;
 }
 
 /*

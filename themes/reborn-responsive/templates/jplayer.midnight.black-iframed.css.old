@@ -15,17 +15,25 @@
  * Date: October 2nd, 2013
  */
 
- body {
-    background: none;
-    background-color: rgb(25, 25, 25);
+div.jp-area {
+    height: 100px;
+    width: 100%;
  }
 
- div.jp-area {
-    margin-left: 230px;
-    margin-right: auto;
-    margin-top: 10px;
-    width: 500px;
-    min-width: 500px;
+ div.jp-area-video {
+    margin: auto;
+ }
+
+div.jp-area-center {
+    margin-top: 20px;
+ }
+
+ div.jp-area-embed {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    width: auto !important;
+    min-width: auto !important;
+    margin-top: 0px !important;
  }
 
 a:active, a:focus {
@@ -44,7 +52,7 @@ div.jp-video {
 
     font-family: 'Verdana', Arial, sans-serif;
     line-height: 1.6;
-    background-color: #eee;
+    margin: auto;
 }
 div.jp-audio {
     width: 480px;
@@ -94,9 +102,22 @@ div.jp-video-full div.jp-interface {
     left: 0;
 }
 
+div.jp-video-float div.jp-jplayer {
+    position: fixed !important;
+    bottom: 100px;
+    border-top: 4px solid #000000;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+div.jp-video-float  div.jp-gui {
+
+}
+
 div.jp-interface {
     position: relative;
     width: 100%;
+    z-index: 9999;
 }
 
 div.jp-audio div.jp-type-single div.jp-interface {
@@ -305,7 +326,7 @@ div.jp-audio-stream div.jp-type-single a.jp-unmute {
 div.jp-audio-stream div.jp-type-single a.jp-volume-max,
 div.jp-audio div.jp-type-single a.jp-volume-max {
     top: 12px;
-    right: 0;
+    right: 0;    
 }
 div.jp-audio div.jp-type-playlist a.jp-volume-max {
     top: 12px;
@@ -406,11 +427,13 @@ div.jp-duration {
     width: auto;
     font-size: 10px;
     font-style: italic;
+    padding-right: 2px;
 }
 div.jp-current-time {
     float: left;
     display: inline;
     text-align: left;
+    padding-left: 2px;
 }
 div.jp-duration {
     float: right;
@@ -435,24 +458,35 @@ div.jp-title {
     font-weight: bold;
     text-align: center;
     color: #FFF;
-
+    
     background-color: rgba(0,0,0,0) !important;
     font-size:0.7em;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin: auto;
+
+    position: relative;
+    top: 70px !important;;
+    width: auto !important;
+    white-space: nowrap;
 }
 
 div.playing_info {
     position: absolute;
-    left: 10px;
-    top: 220px;
+    left: 110px;
+    top: 10px;
     font-size: 1.5em;
     font-family: 'Verdana',Arial,sans-serif;
-    width: 220px;
+    color: rgb(153, 153, 153);
+    width: 300px;
+    z-index: 9999;
 }
 
 div.playing_artist {
-    font-size:0.8em;
+    font-size:0.5em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 div.playing_artist a {
@@ -460,16 +494,78 @@ div.playing_artist a {
 }
 
 div.playing_title {
-    font-size:1.1em;
+    font-size:0.7em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+div.playing_title a {
+    text-decoration: none;
+}
+
+div.playing_features {
+    position: absolute;
+    top: 60px;
+    font-size:0.5em;
+}
+
+div.playing_lyrics {
+    position: relative;
+        display: inline;
+}
+
+div.playing_lyrics a {
+    color: rgb(238, 238, 238);
+    text-decoration: none;
+}
+
+div.playing_actions {
+    position: relative;
+        display: inline;
+}
+
+div.playing_actions div {
+    display: inline-block;
+}
+
+div.waveform {
+    position: absolute;
+    top: 50px;
+    left: 40px;
+    height: 32px;
+    visibility: hidden;
+}
+
+div.waveform a {
+    cursor: crosshair;
+}
+.waveform-shouts {
+    float: left;
+    display:inline;
+}
+
+div.waveform-time {
+    position: absolute;
+    display: block;
+    height: 100%;
+    width: 0px;
+    border-left: 1px solid #ffcaca;
+    left: 0px;
 }
 
 div.jp-title,
 div.jp-playlist {
-    width: 100%;
-    height: 200px;
+    top: 0px;
+    right: 0px;
+    width: 25%;
+    height: 95%;
     overflow: auto;
+    /*background-color: #343433;*/
     text-shadow: 0 1px 0 rgba(0,0,0,0.3);
-    z-index: 0;
+    z-index: 9999;
+    opacity: 0.9;
+    position: absolute;
 }
 div.jp-type-single div.jp-title,
 div.jp-type-playlist div.jp-title,
@@ -506,14 +602,12 @@ div.jp-type-playlist div.jp-playlist li.jp-playlist-current {
     padding-left: 20px;
 }
 div.jp-type-playlist div.jp-playlist a {
-    color: #BBB;
     text-decoration: none;
 }
 div.jp-type-playlist div.jp-playlist a:hover {
     color: #FFF;
 }
 div.jp-type-playlist div.jp-playlist a.jp-playlist-current {
-    color: #FFF;
     font-weight: bold;
 }
 
@@ -542,7 +636,6 @@ div.jp-type-playlist div.jp-playlist span.jp-free-media a:hover{
 }
 span.jp-artist {
     font-size: .8em;
-    color: #666;
 }
 
 /* @end */
@@ -595,8 +688,12 @@ div.jp-jplayer {
 div.jp-jplayer {
     background-color: #000000;
     position: absolute;
+    z-index: 9999;
+}
+
+div.jp-jplayer-audio {
     top: 10px;
-    left: 10px;
+    left: 20px;
 }
 
 
@@ -683,23 +780,22 @@ a.jp-repeat-off:hover {
 }
 
 a.jp-shuffle {
-    background-position: 0 -261px;
+    background-position: 0 -262px;
     margin-left: 5px;
 }
 
 a.jp-shuffle:hover {
-    background-position: -30px -261px;
+    background-position: -30px -262px;
 }
 
 a.jp-shuffle-off {
-    background-position: -60px -261px;
+    background-position: -60px -262px;
     margin-left: 5px;
 }
 
 a.jp-shuffle-off:hover {
-    background-position: -90px -261px;
+    background-position: -90px -262px;
 }
-
 
 /* @end */
 
@@ -724,12 +820,57 @@ a.jp-shuffle-off:hover {
     font-weight: bold;
 }
 
-.broadcast {
+.jp-close {
+    font-size: 0.67em;
+    text-align: left;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+.jp-close a{
+    color: #CCC;
+    z-index: 9999;
+}
+
+#webplayer-minimize {
+    bottom: 0;
+    display: none;
+    font-size: 0.67em;
+    left: 0;
+    position: fixed;
+    text-align: left;
+    z-index: 10000;
+}
+
+#webplayer-minimize a{
+    color: #CCC;
+    z-index: 10000;
+}
+
+.player_actions {
     position: absolute;
     top: 2px;
     margin-right: 2px;
-    left:210px;
+    right:25%;
     font-size: 0.67em;
+    width: 60px;
+    height: 95px;
+    text-align: right;
+    display: inline;
+    opacity: 0.4;
+}
+
+.player_actions:hover{
+    opacity: 1;
+}
+
+.action_button {
+    display: inline-block;
+}
+
+.broadcast {
 }
 
 .broadcast-info {
@@ -740,4 +881,17 @@ a.jp-shuffle-off:hover {
     display: inline;
 }
 
+.slideshow {
+}
+
+#webplayer {
+    position: fixed;
+    z-index: 9999;
+    display: none;
+    bottom: 0px;
+    width: 100%;
+    height: 100px;
+}
+
 /* @end */
+

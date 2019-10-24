@@ -29,6 +29,7 @@ header('Expires: ' . gmdate(DATE_RFC1123, time() - 1));
 <html>
 <head>
 <!-- Propelled by Ampache | ampache.org -->
+<!-- test -->
 <title><?php echo AmpConfig::get('site_title'); ?></title>
 <meta property="og:title" content="<?php echo AmpConfig::get('site_title'); ?>" />
 <meta property="og:image" content="<?php echo UI::get_logo_url(); ?>"/>

@@ -21,9 +21,6 @@
  */
 
 ?>
-<html>
-<head>
-<title><?php echo AmpConfig::get('site_title'); ?></title>
 <script>
 function PlayerFrame()
 {
@@ -68,7 +65,3 @@ if ($_REQUEST['append']) {
 
 PlayerFrame();
 </script>
-</head>
-<body>
-</body>
-</html>

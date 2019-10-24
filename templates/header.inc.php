@@ -290,7 +290,7 @@ $t_logout    = T_('Log out');
                 init_slideshow_check();
             });
         </script>
-        <script type="text/javascript">
+        <script>
             /* Set the width of the side navigation to 250px */
             function toggle_sidebar() {
                 if ($("#sidebar").hasClass("show")) {
@@ -330,6 +330,7 @@ $t_logout    = T_('Log out');
                 type: 'warning',
                 layout: 'bottom',
                 timeout: false,
+                theme: 'metroui',
                 callback: {
                     afterClose: function() {
                         $.cookie('cookie_disclaimer', '1', { expires: 365 });
@@ -529,7 +530,7 @@ $t_logout    = T_('Log out');
             </div>
 
             <!-- Tiny little div, used to cheat the system -->
-            <div id="ajax-loading"><?php echo T_('Loading') . ' . . .'; ?></div>
+            <div id="ajax-loading" class="hidden"><?php echo T_('Loading') . ' . . .'; ?></div>
             <div id="util_div" style="display:none;"></div>
             <iframe name="util_iframe" id="util_iframe" style="display:none;" src="<?php echo $web_path; ?>/util.php"></iframe>
 

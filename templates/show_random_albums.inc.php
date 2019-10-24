@@ -39,7 +39,9 @@ if ($albums) {
                     $thumb     = 11;
                     $show_play = false;
                 }
-                $album->display_art($thumb, true);
+                $album->display_art($thumb, true); ?>
+                <div class="album-information"><span class="album-name"><?php echo $album->f_name; ?></span><br /><span class="artist-name"><?php echo $album->f_artist; ?></span></div>
+                <?php
             } else {
                 ?>
             <a href="<?php echo $album->link; ?>">
