@@ -899,7 +899,7 @@ class User extends database_object
 
         if (!$noscrobble) {
             $this->set_preferences();
-            // If pthreads available, we call save_songplay in a new thread to quickly return
+            // If pthreads available, we call save_mediaplay in a new thread to quickly return
             if (class_exists("Thread", false)) {
                 debug_event('user.class', 'Calling save_mediaplay plugins in a new thread...', 5);
                 $thread = new scrobbler_async(Core::get_global('user'), $media);
@@ -934,8 +934,8 @@ class User extends database_object
                 if ($plugin->load($user)) {
                     $plugin->_plugin->save_mediaplay($media);
                 }
-            } catch (Exception $e) {
-                debug_event('user.class', 'Stats plugin error: ' . $e->getMessage(), 1);
+            } catch (Exception $error) {
+                debug_event('user.class', 'Stats plugin error: ' . $error->getMessage(), 1);
             }
         }
     }
@@ -948,11 +948,11 @@ class User extends database_object
     public function insert_ip_history()
     {
         if (filter_has_var(INPUT_SERVER, 'HTTP_X_FORWARDED_FOR')) {
-            $sip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-            debug_event('user.class', 'Login from IP address: ' . $sip, 3);
+            $sip = filter_var(Core::get_server('HTTP_X_FORWARDED_FOR'), FILTER_VALIDATE_IP);
+            debug_event('user.class', 'Login from IP address: ' . (string) $sip, 3);
         } else {
-            $sip = Core::get_server('REMOTE_ADDR');
-            debug_event('user.class', 'Login from IP address: ' . $sip, 3);
+            $sip = filter_var(Core::get_server('REMOTE_ADDR'), FILTER_VALIDATE_IP);
+            debug_event('user.class', 'Login from IP address: ' . (string) $sip, 3);
         }
 
         // Remove port information if any
@@ -969,7 +969,7 @@ class User extends database_object
         $uip     = (!empty($sip)) ? Dba::escape(inet_pton(trim($sip, "[]"))) : '';
         $date    = time();
         $user_id = $this->id;
-        $agent   = Dba::escape($_SERVER['HTTP_USER_AGENT']);
+        $agent   = Dba::escape(Core::get_server('HTTP_USER_AGENT'));
 
         $sql = "INSERT INTO `ip_history` (`ip`,`user`,`date`,`agent`) VALUES ('$uip', '$user_id', '$date', '$agent')";
         Dba::write($sql);

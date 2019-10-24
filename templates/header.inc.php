@@ -40,7 +40,7 @@ $t_upload    = T_('Upload');
 $t_logout    = T_('Log out');
 ?>
 <!-- REMOVEME: Start of header.inc.php -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $htmllang; ?>" lang="<?php echo $htmllang; ?>" dir="<?php echo is_rtl(AmpConfig::get('lang')) ? 'rtl' : 'ltr';?>">
     <head>
         <!-- Propelled by Ampache | ampache.org -->
@@ -70,32 +70,30 @@ $t_logout    = T_('Log out');
         <link rel="stylesheet" href="<?php echo $web_path; ?>/lib/components/jstree/dist/themes/default/style.min.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="<?php echo $web_path; ?>/lib/components/tag-it/css/jquery.tagit.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="<?php echo $web_path; ?>/modules/rhinoslider/css/rhinoslider-1.05.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="<?php echo $web_path; ?>/modules/jquery-mediaTable/jquery.mediaTable.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="<?php echo $web_path; ?>/lib/components/datetimepicker/jquery.datetimepicker.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="<?php echo $web_path; ?>/lib/components/jQuery-contextMenu/dist/jquery.contextMenu.min.css" type="text/css" media="screen" />
         <?php require_once AmpConfig::get('prefix') . UI::find_template('stylesheets.inc.php'); ?>
 
-        <script src="<?php echo $web_path; ?>/lib/components/jquery/jquery.min.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/lib/components/jquery-ui/jquery-ui.min.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/lib/components/prettyphoto/js/jquery.prettyPhoto.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/lib/components/tag-it/js/tag-it.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/lib/vendor/needim/noty/js/noty/packaged/jquery.noty.packaged.min.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/lib/components/jquery-cookie/jquery.cookie.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/lib/components/jscroll/jquery.jscroll.min.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/lib/components/jquery-qrcode/src/jquery.qrcode.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/modules/rhinoslider/js/rhinoslider-1.05.min.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/lib/components/responsive-elements/responsive-elements.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/modules/jquery-mediaTable/jquery.mediaTable.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/lib/components/datetimepicker/jquery.datetimepicker.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/lib/components/jQuery-Knob/js/jquery.knob.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/lib/components/jQuery-File-Upload/js/jquery.iframe-transport.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/lib/components/jQuery-File-Upload/js/jquery.fileupload.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/lib/components/jQuery-contextMenu/dist/jquery.contextMenu.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/lib/javascript/base.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/lib/javascript/ajax.js" language="javascript" type="text/javascript"></script>
-        <script src="<?php echo $web_path; ?>/lib/javascript/tools.js" language="javascript" type="text/javascript"></script>
+        <script src="<?php echo $web_path; ?>/lib/components/jquery/jquery.min.js"></script>
+        <script src="<?php echo $web_path; ?>/lib/components/jquery-ui/jquery-ui.min.js"></script>
+        <script src="<?php echo $web_path; ?>/lib/components/prettyphoto/js/jquery.prettyPhoto.js"></script>
+        <script src="<?php echo $web_path; ?>/lib/components/tag-it/js/tag-it.js"></script>
+        <script src="<?php echo $web_path; ?>/lib/vendor/needim/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+        <script src="<?php echo $web_path; ?>/lib/components/jquery-cookie/jquery.cookie.js"></script>
+        <script src="<?php echo $web_path; ?>/lib/components/jscroll/jquery.jscroll.min.js"></script>
+        <script src="<?php echo $web_path; ?>/lib/components/jquery-qrcode/src/jquery.qrcode.js"></script>
+        <script src="<?php echo $web_path; ?>/modules/rhinoslider/js/rhinoslider-1.05.min.js"></script>
+        <script src="<?php echo $web_path; ?>/lib/components/responsive-elements/responsive-elements.js"></script>
+        <script src="<?php echo $web_path; ?>/lib/components/datetimepicker/jquery.datetimepicker.js"></script>
+        <script src="<?php echo $web_path; ?>/lib/components/jQuery-Knob/js/jquery.knob.js"></script>
+        <script src="<?php echo $web_path; ?>/lib/vendor/blueimp/jquery-file-upload/js/jquery.iframe-transport.js"></script>
+        <script src="<?php echo $web_path; ?>/lib/vendor/blueimp/jquery-file-upload/js/jquery.fileupload.js"></script>
+        <script src="<?php echo $web_path; ?>/lib/components/jQuery-contextMenu/dist/jquery.contextMenu.js"></script>
+        <script src="<?php echo $web_path; ?>/lib/javascript/base.js"></script>
+        <script src="<?php echo $web_path; ?>/lib/javascript/ajax.js"></script>
+        <script src="<?php echo $web_path; ?>/lib/javascript/tools.js"></script>
 
-        <script type="text/javascript" charset="utf-8">
+        <script>
             $(document).ready(function(){
                 $("a[rel^='prettyPhoto']").prettyPhoto({social_tools:false});
                 <?php if (AmpConfig::get('geolocation')) {
@@ -116,9 +114,9 @@ $t_logout    = T_('Log out');
         <?php
         if (AmpConfig::get('ajax_load')) {
             $iframed = true; ?>
-        <script src="<?php echo $web_path; ?>/lib/javascript/dynamicpage.js" language="javascript" type="text/javascript"></script>
+        <script src="<?php echo $web_path; ?>/lib/javascript/dynamicpage.js"></script>
         <?php require_once AmpConfig::get('prefix') . UI::find_template('show_html5_player_headers.inc.php'); ?>
-        <script type="text/javascript">
+        <script>
             function NavigateTo(url)
             {
                 window.location.hash = url.substring(jsWebPath.length + 1);
@@ -141,7 +139,7 @@ $t_logout    = T_('Log out');
         <?php
         } else {
             ?>
-        <script type="text/javascript">
+        <script>
             function NavigateTo(url)
             {
                 window.location.href = url;
@@ -154,7 +152,7 @@ $t_logout    = T_('Log out');
         </script>
         <?php
         } ?>
-        <script type="text/javascript">
+        <script>
             $.widget( "custom.catcomplete", $.ui.autocomplete, {
                 _renderItem: function( ul, item ) {
                         var itemhtml = "";
@@ -223,7 +221,7 @@ $t_logout    = T_('Log out');
                     });
             });
         </script>
-        <script type="text/javascript">
+        <script>
             var lastaction = new Date().getTime();
             var refresh_slideshow_interval=<?php if (Preference::exists('flickr_api_key')) {
             echo AmpConfig::get('slideshow_time');
@@ -310,7 +308,7 @@ $t_logout    = T_('Log out');
                 <div id="fslider_script"></div>
             </div>
         </div>
-        <script type="text/javascript" language="javascript">
+        <script>
             $("#aslideshow").click(function(e) {
                 if (!$(e.target).hasClass('rhino-btn')) {
                     update_action();
@@ -319,10 +317,10 @@ $t_logout    = T_('Log out');
         </script>
 
         <?php
-            if (AmpConfig::get('cookie_disclaimer') && !isset($_COOKIE['cookie_disclaimer'])) {
+            if (AmpConfig::get('cookie_disclaimer') && !filter_has_var(INPUT_COOKIE, 'cookie_disclaimer')) {
                 ?>
 
-        <script type="text/javascript" language="javascript">
+        <script>
         noty({text: '<?php
                         printf(json_encode(nl2br(
                             /* HINT: Translator, "%s" is replaced by "cookie settings" */
@@ -345,7 +343,7 @@ $t_logout    = T_('Log out');
             if (AmpConfig::get('libitem_contextmenu')) {
                 ?>
 
-        <script type="text/javascript" language="javascript">
+        <script>
             function libitem_action(item, action)
             {
                 var iinfo = item.attr('id').split('_', 2);
@@ -403,11 +401,11 @@ $t_logout    = T_('Log out');
                         } else {
                             ?>
                         <span id="loginInfo">
-                            <a href="<?php echo $web_path; ?>/login.php" rel="nohtml"><?php echo T_('Login'); ?></a>
+                            <a href="<?php echo $web_path; ?>/login.php" class="nohtml"><?php echo T_('Login'); ?></a>
                         <?php
                             if (AmpConfig::get('allow_public_registration') && Mailer::is_mail_enabled()) {
                                 ?>
-                                / <a href="<?php echo $web_path; ?>/register.php" rel="nohtml"><?php echo T_('Register'); ?></a>
+                                / <a href="<?php echo $web_path; ?>/register.php" class="nohtml"><?php echo T_('Register'); ?></a>
                         <?php
                             } ?>
                         </span>
@@ -503,7 +501,7 @@ $t_logout    = T_('Log out');
                 </div>
             </div>
             <!-- Handle collapsed visibility -->
-            <script type="text/javascript">
+            <script>
             $('#sidebar-header').click(function(){
                 var newstate;
                 if ($('#sidebar-header').hasClass("sidebar-header-collapsed")) {
@@ -550,8 +548,8 @@ $t_logout    = T_('Log out');
                             <div class="fatalerror">
                                 <?php echo T_('Your Ampache config file is out of date!'); ?>
                                 <br />
-                                <a rel="nohtml" href="<?php echo $web_path; ?>/admin/system.php?action=generate_config"><?php echo T_('Download a new config file to manually update'); ?></a> |
-                                <a rel="nohtml" href="<?php echo $web_path; ?>/admin/system.php?action=write_config"><?php echo T_('Write a new config file directly to disk'); ?></a>
+                                <a class="nohtml" href="<?php echo $web_path; ?>/admin/system.php?action=generate_config"><?php echo T_('Download a new config file to manually update'); ?></a> |
+                                <a class="nohtml" href="<?php echo $web_path; ?>/admin/system.php?action=write_config"><?php echo T_('Write a new config file directly to disk'); ?></a>
                             </div>
                 <?php
                         }

@@ -277,10 +277,10 @@ abstract class Catalog extends database_object
      */
     public static function show_catalog_types($divback = 'catalog_type_fields')
     {
-        echo "<script language=\"javascript\" type=\"text/javascript\">" .
+        echo '<script>' .
             "var type_fields = new Array();" .
             "type_fields['none'] = '';";
-        $seltypes = '<option value="none">[Select]</option>';
+        $seltypes = '<option value="none">[' . T_("Select") . ']</option>';
         $types    = self::get_catalog_types();
         foreach ($types as $type) {
             $catalog = self::create_catalog_type($type);
@@ -313,7 +313,7 @@ abstract class Catalog extends database_object
             "var sel = document.getElementById('catalog_type');" .
             "var seltype = sel.options[sel.selectedIndex].value;" .
             "var ftbl = document.getElementById('" . $divback . "');" .
-            "ftbl.innerHTML = '<table class=\"tabledata\" cellpadding=\"0\" cellspacing=\"0\">' + type_fields[seltype] + '</table>';" .
+            "ftbl.innerHTML = '<table class=\"tabledata\">' + type_fields[seltype] + '</table>';" .
             "} </script>" .
             "<select name=\"type\" id=\"catalog_type\" onChange=\"catalogTypeChanged();\">" . $seltypes . "</select>";
     }
@@ -1570,7 +1570,7 @@ abstract class Catalog extends database_object
      * @param string $type
      * @param integer $object_id
      */
-    public static function update_single_item($type, $object_id)
+    public static function update_single_item($type, $object_id, $api = false)
     {
         // Because single items are large numbers of things too
         set_time_limit(0);
@@ -1592,29 +1592,33 @@ abstract class Catalog extends database_object
                 break;
         } // end switch type
 
+        echo '<table class="tabledata">' . "\n";
+        echo '<thead><tr class="th-top">' . "\n";
+        echo "<th>" . T_("Song") . "</th><th>" . T_("Status") . "</th>\n";
+        echo "<tbody>\n";
         foreach ($songs as $song_id) {
             $song = new Song($song_id);
             $info = self::update_media_from_tags($song);
-
-            if ($info['change']) {
+            // don't echo useless info when using api
+            if ($api) {
+                //do nothing
+            } elseif ($info['change']) {
                 if ($info['element'][$type]) {
                     $change = explode(' --> ', $info['element'][$type]);
                     $result = $change[1];
                 }
                 $file   = scrub_out($song->file);
-                echo "<dl>\n\t<dd>";
-                echo "<strong>$file " . T_('Updated') . "</strong>\n";
+                echo '<tr class="' . UI::flip_class() . '">' . "\n";
+                echo "<td>$file</td><td>" . T_('Updated') . "</td>\n";
                 echo $info['text'];
-                echo "\t</dd>\n</dl><hr align=\"left\" width=\"50%\" />";
+                echo "</td>\n</tr>\n";
                 flush();
-            } // if change
-            else {
-                echo"<dl>\n\t<dd>";
-                echo "<strong>" . scrub_out($song->file) . "</strong><br />" . T_('No Update Needed') . "\n";
-                echo "\t</dd>\n</dl><hr align=\"left\" width=\"50%\" />";
+            } else {
+                echo '<tr class="' . UI::flip_class() . '"><td>' . scrub_out($song->file) . "</td><td>" . T_('No Update Needed') . "</td></tr>\n";
                 flush();
             }
         } // foreach songs
+        echo "</tbody></table>\n";
 
         return $result;
     } // update_single_item

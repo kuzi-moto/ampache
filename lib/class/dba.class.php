@@ -54,6 +54,7 @@ class Dba
 
     /**
      * query
+     * @return PDOStatement|boolean
      */
     public static function query($sql, $params = array())
     {
@@ -125,6 +126,7 @@ class Dba
 
     /**
      * write
+     * @return PDOStatement|boolean
      */
     public static function write($sql, $params = null)
     {
@@ -300,9 +302,9 @@ class Dba
         try {
             debug_event('dba.class', 'Database connection...', 6);
             $dbh = new PDO($dsn, $username, $password);
-        } catch (PDOException $e) {
-            self::$_error = $e->getMessage();
-            debug_event('dba.class', 'Connection failed: ' . $e->getMessage(), 1);
+        } catch (PDOException $error) {
+            self::$_error = $error->getMessage();
+            debug_event('dba.class', 'Connection failed: ' . $error->getMessage(), 1);
 
             return null;
         }

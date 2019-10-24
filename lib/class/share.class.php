@@ -171,8 +171,8 @@ class Share extends database_object
                         break;
                     }
                 }
-            } catch (Exception $e) {
-                debug_event('share.class', 'Share plugin error: ' . $e->getMessage(), 1);
+            } catch (Exception $error) {
+                debug_event('share.class', 'Share plugin error: ' . $error->getMessage(), 1);
             }
         }
         $sql = "UPDATE `share` SET `public_url` = ? WHERE `id` = ?";
@@ -438,7 +438,7 @@ class Share extends database_object
                     // Add session information to the link to avoid authentication
                     $dllink .= "&ssid=" . Stream::get_session();
                 }
-                echo "<li><a rel=\"nohtml\" href=\"" . $dllink . "\">" . UI::get_icon('download', T_('Temporary direct link')) . " &nbsp;" . T_('Temporary direct link') . "</a></li>";
+                echo "<li><a class=\"nohtml\" href=\"" . $dllink . "\">" . UI::get_icon('download', T_('Temporary direct link')) . " &nbsp;" . T_('Temporary direct link') . "</a></li>";
             }
         }
         echo "<li style='padding-top: 8px; text-align: right;'>";

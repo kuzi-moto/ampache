@@ -135,9 +135,9 @@ if ($client->f_avatar) {
         $object_ids   = $tmp_playlist->get_items();
         if (count($object_ids) > 0) {
             UI::show_box_top(T_('Active Playlist')); ?>
-        <table cellspacing="0">
+        <table>
             <tr>
-                <td valign="top">
+                <td>
                     <?php
                         foreach ($object_ids as $object_data) {
                             $type   = array_shift($object_data);

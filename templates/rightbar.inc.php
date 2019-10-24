@@ -50,7 +50,7 @@
 <?php if (Access::check_function('batch_download') && check_can_zip('tmp_playlist')) {
         ?>
     <li>
-        <a rel="nohtml" href="<?php echo AmpConfig::get('web_path'); ?>/batch.php?action=tmp_playlist&amp;id=<?php echo Core::get_global('user')->playlist->id; ?>">
+        <a class="nohtml" href="<?php echo AmpConfig::get('web_path'); ?>/batch.php?action=tmp_playlist&amp;id=<?php echo Core::get_global('user')->playlist->id; ?>">
             <?php echo UI::get_icon('batch_download', T_('Batch download')); ?>
         </a>
     </li>
@@ -92,7 +92,7 @@
         $objects = Core::get_global('user')->playlist->get_items();
     }
 ?>
-    <script type="text/javascript">
+    <script>
         <?php if (count($objects) > 0 || (AmpConfig::get('play_type') == 'localplay')) {
     ?>
              $("#content").removeClass("content-right-wild", 500);

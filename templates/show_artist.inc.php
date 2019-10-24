@@ -134,12 +134,10 @@ if (AmpConfig::get('sociable') && $owner_id > 0) {
         <?php if ($show_playlist_add) {
         ?>
         <li>
-            <?php /* HINT: Artist Fullname */ ?>
             <?php echo Ajax::button('?action=basket&type=artist&id=' . $artist->id, 'add', T_('Add All to Temporary Playlist'), 'add_' . $artist->id); ?>
             <?php echo Ajax::text('?action=basket&type=artist&id=' . $artist->id, T_('Add All to Temporary Playlist'), 'add_text_' . $artist->id); ?>
         </li>
         <li>
-            <?php /* HINT: Artist Fullname */ ?>
             <?php echo Ajax::button('?action=basket&type=artist_random&id=' . $artist->id, 'random', T_('Random All to Temporary Playlist'), 'random_' . $artist->id); ?>
             <?php echo Ajax::text('?action=basket&type=artist_random&id=' . $artist->id, T_('Random All to Temporary Playlist'), 'random_text_' . $artist->id); ?>
         </li>
@@ -165,31 +163,21 @@ if (AmpConfig::get('sociable') && $owner_id > 0) {
         <?php if (Access::check_function('batch_download') && check_can_zip('artist')) {
         $download = T_('Download'); ?>
         <li>
-            <a rel="nohtml" href="<?php echo $web_path; ?>/batch.php?action=artist&id=<?php echo $artist->id; ?>"><?php echo UI::get_icon('batch_download', $download); ?></a>
-            <a rel="nohtml" href="<?php echo $web_path; ?>/batch.php?action=artist&id=<?php echo $artist->id; ?>"><?php echo $download; ?></a>
+            <a class="nohtml" href="<?php echo $web_path; ?>/batch.php?action=artist&id=<?php echo $artist->id; ?>"><?php echo UI::get_icon('batch_download', $download); ?></a>
+            <a class="nohtml" href="<?php echo $web_path; ?>/batch.php?action=artist&id=<?php echo $artist->id; ?>"><?php echo $download; ?></a>
         </li>
         <?php
     } ?>
         <?php if ($artist->can_edit()) {
         $artistedit = T_('Artist Edit'); ?>
-            <?php if (AmpConfig::get('allow_upload')) {
-            $t_upload = T_('Upload'); ?>
-                <li>
-                    <a href="<?php echo $web_path; ?>/upload.php?artist=<?php echo $artist->id; ?>">
-                        <?php echo UI::get_icon('upload', $t_upload); ?>
-                        &nbsp;&nbsp;<?php echo $t_upload; ?>
-                    </a>
-                </li>
-            <?php
-        } ?>
-                <li>
-                    <a id="<?php echo 'edit_artist_' . $artist->id ?>" onclick="showEditDialog('artist_row', '<?php echo $artist->id ?>', '<?php echo 'edit_artist_' . $artist->id ?>', '<?php echo $artistedit ?>', '')">
-                        <?php echo UI::get_icon('edit', T_('Edit')); ?>
-                    </a>
-                    <a id="<?php echo 'edit_artist_' . $artist->id ?>" onclick="showEditDialog('artist_row', '<?php echo $artist->id ?>', '<?php echo 'edit_artist_' . $artist->id ?>', '<?php echo $artistedit ?>', '')">
-                        <?php echo T_('Edit Artist'); ?>
-                    </a>
-                </li>
+            <li>
+                <a id="<?php echo 'edit_artist_' . $artist->id ?>" onclick="showEditDialog('artist_row', '<?php echo $artist->id ?>', '<?php echo 'edit_artist_' . $artist->id ?>', '<?php echo $artistedit ?>', '')">
+                    <?php echo UI::get_icon('edit', T_('Edit')); ?>
+                </a>
+                <a id="<?php echo 'edit_artist_' . $artist->id ?>" onclick="showEditDialog('artist_row', '<?php echo $artist->id ?>', '<?php echo 'edit_artist_' . $artist->id ?>', '<?php echo $artistedit ?>', '')">
+                    <?php echo T_('Edit Artist'); ?>
+                </a>
+            </li>
         <?php
     } ?>
         <?php if (Catalog::can_remove($artist)) {

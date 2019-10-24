@@ -62,18 +62,19 @@
                 <?php require_once AmpConfig::get('prefix') . UI::find_template('sidebar_home.inc.php'); ?>
             </div>
         </li>
-    <?php
-    } ?>
-    <li id="sb_tab_logout" class="sb1">
-        <a target="_top" href="<?php echo $web_path; ?>/logout.php" id="sidebar_logout" rel="nohtml">
+<?php
+}
+?>
+        <li id="sb_tab_logout" class="sb1">
+            <a target="_top" href="<?php echo $web_path; ?>/logout.php" id="sidebar_logout" class="nohtml" >
             <?php echo UI::get_icon('logout', $t_logout); ?>
         </a>
     </li>
 </ul>
 
-<script type="text/javascript">
-    $(function() {
-        $(".header").click(function() {
+<script>
+$(function() {
+    $(".header").click(function () {
 
             $header = $(this);
             //getting the next element

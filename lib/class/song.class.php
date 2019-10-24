@@ -414,14 +414,14 @@ class Song extends database_object implements media, library_item
             $album_id = (int) ($results['album_id']);
         }
 
-        $sql = 'INSERT INTO `song` (`file`, `catalog`, `album`, `artist`, ' .
+        $sql = 'INSERT INTO `song` (`catalog`, `file`, `album`, `artist`, ' .
             '`title`, `bitrate`, `rate`, `mode`, `size`, `time`, `track`, ' .
             '`addition_time`, `year`, `mbid`, `user_upload`, `license`, ' .
             '`composer`, `channels`) ' .
             'VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
         $db_results = Dba::write($sql, array(
-            $file, $catalog, $album_id, $artist_id,
+            $catalog, $file, $album_id, $artist_id,
             $title, $bitrate, $rate, $mode, $size, $time, $track,
             time(), $year, $track_mbid, $user_upload, $license,
             $composer, $channels));
@@ -969,16 +969,31 @@ class Song extends database_object implements media, library_item
      */
     public function set_played($user, $agent, $location, $date = null)
     {
+        $previous = Stats::get_last_song($user);
+        $diff     = time() - $previous['date'];
+
+        // this song was your last play and the length between plays is too short.
+        if ($previous['object_id'] == $this->id && $diff <= ($this->time - 20)) {
+            debug_event('song.class', 'Repeated the same song too quickly, not recording stats', 3);
+
+            return false;
+        }
+
+        // try to keep a difference between recording stats but also allowing short songs
+        if ($diff < 20 && !$this->time < 20) {
+            debug_event('song.class', 'Last song played within ' . $diff . ' seconds, not recording stats', 3);
+
+            return false;
+        }
+
         Stats::insert('song', $this->id, $user, $agent, $location, 'stream', $date);
         Stats::insert('album', $this->album, $user, $agent, $location, 'stream', $date);
         Stats::insert('artist', $this->artist, $user, $agent, $location, 'stream', $date);
 
-        if ($this->played) {
-            return true;
+        if (!$this->played) {
+            /* If it hasn't been played, set it! */
+            self::update_played(true, $this->id);
         }
-
-        /* If it hasn't been played, set it! */
-        self::update_played(true, $this->id);
 
         return true;
     } // set_played

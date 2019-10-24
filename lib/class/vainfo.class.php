@@ -223,7 +223,7 @@ class vainfo
         }
 
         /* Figure out what type of file we are dealing with */
-        $this->type = $this->_get_type();
+        $this->type = $this->_get_type() ?: '';
 
         if (in_array('filename', $enabled_sources)) {
             $this->tags['filename'] = $this->_parse_filename($this->filename);
@@ -293,8 +293,8 @@ class vainfo
             $this->_raw = $this->_getID3->analyze($this->filename);
 
             return $this->_raw;
-        } catch (Exception $e) {
-            debug_event('vainfo.class', "Unable to read file:" . $e->getMessage(), 1);
+        } catch (Exception $error) {
+            debug_event('vainfo.class', "Unable to read file:" . $error->getMessage(), 1);
         }
     } // read_id3
 

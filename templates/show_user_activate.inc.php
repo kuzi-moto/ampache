@@ -23,13 +23,13 @@
 $htmllang = str_replace("_", "-", AmpConfig::get('lang'));
 $web_path = AmpConfig::get('web_path');
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $htmllang; ?>" lang="<?php echo $htmllang; ?>">
     <head>
         <!-- Propelled by Ampache | ampache.org -->
         <meta http-equiv="Content-Type" content="text/html; charset=<?php echo AmpConfig::get('site_charset'); ?>" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title><?php echo AmpConfig::get('site_title'); ?> - <?php echo T_('Registration'); ?></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><?php echo AmpConfig::get('site_title') . ' - ' . T_('Registration'); ?></title>
         <?php require_once AmpConfig::get('prefix') . UI::find_template('stylesheets.inc.php'); ?>
     </head>
     <body id="registerPage">
@@ -40,9 +40,9 @@ $web_path = AmpConfig::get('web_path');
                 </a>
                 <span><?php echo T_('Registration Validation'); ?>.</span>
             </div>
-            <script src="<?php echo $web_path; ?>/lib/components/jquery/jquery.min.js" language="javascript" type="text/javascript"></script>
-            <script src="<?php echo $web_path; ?>/lib/javascript/base.js" language="javascript" type="text/javascript"></script>
-            <script src="<?php echo $web_path; ?>/lib/javascript/ajax.js" language="javascript" type="text/javascript"></script>
+            <script src="<?php echo $web_path; ?>/lib/components/jquery/jquery.min.js"></script>
+            <script src="<?php echo $web_path; ?>/lib/javascript/base.js"></script>
+            <script src="<?php echo $web_path; ?>/lib/javascript/ajax.js"></script>
             <div>
 <?php
     if ($validation == User::get_validation($username) && strlen($validation)) {

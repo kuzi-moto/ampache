@@ -23,7 +23,7 @@
 ?>
 
 <!-- REMOVEME: Start of javascript_refresh.inc.php -->
-<script type="text/javascript" language="javascript">
+<script>
 // Set refresh interval (in seconds)
 var refreshInterval=<?php echo $refresh_limit ?>;
 
