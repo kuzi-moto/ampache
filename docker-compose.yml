@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  ampache-db:
+    image: mariadb:10.4
+    container_name: ampache-db
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - backend
+    volumes:
+      - db-vol:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${AMPACHE_DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${AMPACHE_DB_NAME}
+      MYSQL_USER: ${AMPACHE_DB_USER}
+      MYSQL_PASSWORD: ${AMPACHE_DB_PASSWORD}
+
+  ampache:
+    image: ampache
+    container_name: ampache
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - backend
+    ports:
+      - 80:80
+    volumes:
+      - /media:/media   # Make sure to replace with the actual path to your music
+      - ampache-vol:/var/www/html/config
+      - ./data/log:/var/log/ampache
+
+networks:
+  backend:
+    external: false
+
+volumes:
+  db-vol:
+  ampache-vol:

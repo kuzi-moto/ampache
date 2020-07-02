@@ -1,5 +1,5 @@
 # Build Ampache
-FROM composer AS builder
+FROM composer:1.10.8 AS builder
 COPY . .
 RUN composer install --prefer-source --no-interaction
 
@@ -12,8 +12,8 @@ RUN apt update && apt install -y \
     libpng-dev
 
 # Additional extensions
-RUN docker-php-ext-configure gd --with-jpeg \
-    && docker-php-ext-install pdo_mysql gd
+RUN docker-php-ext-configure gd --with-jpeg && \
+    docker-php-ext-install pdo_mysql gd
 
 RUN mkdir -m 777 /var/log/ampache
 
